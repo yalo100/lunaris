@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunaris Studio — Digital Luxury</title>
+  <meta name="description" content="Studio créatif premium. Expériences digitales raffinées.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;600&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div id="bg"></div>
+  <div id="grain"></div>
+
+  <!-- HEADER -->
+  <header id="header" class="header">
+    <div class="header-container">
+
+      <div class="brand">
+        <img src="assets/logo.png" class="logo" alt="Lunaris Studio">
+        <span>Lunaris Studio</span>
+      </div>
+
+      <button id="theme-toggle" aria-label="Changer de thème">
+        <span class="knob"></span>
+      </button>
+
+      <nav class="nav">
+        <a href="#hero">Accueil</a>
+        <a href="#essence">Essence</a>
+        <a href="#services">Services</a>
+        <a href="#contact" class="cta">Contact</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-title">
+          <span class="split">Expériences</span>
+          <span class="split accent">digitales</span>
+          <span class="split">de luxe.</span>
+        </h1>
+        <p class="hero-sub">Minimalisme. Lumière. Précision.</p>
+      </div>
+    </section>
+
+    <!-- ESSENCE -->
+    <section id="essence" class="section">
+      <div class="section-header reveal">
+        <h2>Essence</h2>
+      </div>
+
+      <div class="container">
+        <p class="text xl reveal">
+          Nous concevons des interfaces <strong>sobres</strong> et <strong>impactantes</strong>. 
+          La lumière guide chaque détail : typographie, contraste, fluidité.
+        </p>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <div class="section-header reveal">
+        <h2>Services</h2>
+      </div>
+
+      <div class="container cards">
+        <article class="card reveal-up">
+          <h3>Site vitrine deluxe</h3>
+          <p>One-page haut de gamme, esthétique luxe.</p>
+        </article>
+        <article class="card reveal-up">
+          <h3>E-commerce</h3>
+          <p>Parcours d’achat clair, paiement sécurisé.</p>
+        </article>
+        <article class="card reveal-up">
+          <h3>Applications</h3>
+          <p>Interfaces rapides, API & Firebase.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact-section">
+      <div class="section-header reveal">
+        <h2>Contact</h2>
+      </div>
+
+      <div class="container contact reveal-up">
+        <p class="m">Parlons de votre projet. Réponse sous 24h.</p>
+        <div class="contact-actions">
+          <a class="btn" href="mailto:contact@lunarisstudio.ma">contact@lunarisstudio.ma</a>
+          <a class="btn btn--outline" href="#" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    © <span id="year"></span> Lunaris Studio — Casablanca, Maroc
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <script src="script.js"></script>
+</body>
+</html>
