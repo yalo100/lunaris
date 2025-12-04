@@ -1,17 +1,31 @@
 /* ============================================================
-   SMOOTH SCROLL — LENIS
+   SMOOTH SCROLL — LENIS (respecte le prefers-reduced-motion)
 ============================================================ */
-const lenis = new Lenis({
-  duration: 1.2,
-  smooth: true,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-});
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+let lenis = null;
 
-function raf(time) {
-  lenis.raf(time);
+function startLenis() {
+  if (lenis) return;
+
+  lenis = new Lenis({
+    duration: 1.2,
+    smooth: true,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  });
+
+  function raf(time) {
+    lenis?.raf(time);
+    requestAnimationFrame(raf);
+  }
+
   requestAnimationFrame(raf);
 }
-requestAnimationFrame(raf);
+
+function stopLenis() {
+  if (!lenis) return;
+  lenis.stop();
+  lenis = null;
+}
 
 
 /* ============================================================
@@ -20,7 +34,7 @@ requestAnimationFrame(raf);
 const header = document.getElementById("header");
 let lastScroll = 0;
 
-window.addEventListener("scroll", () => {
+function handleHeaderScroll() {
   const current = window.scrollY;
 
   if (current > 80 && current > lastScroll) {
@@ -30,7 +44,9 @@ window.addEventListener("scroll", () => {
   }
 
   lastScroll = current;
-});
+}
+
+window.addEventListener("scroll", handleHeaderScroll);
 
 
 /* ============================================================
@@ -66,6 +82,8 @@ function splitLines(selector) {
   const elements = document.querySelectorAll(selector);
 
   elements.forEach(el => {
+    if (el.dataset.splitApplied === "true") return;
+
     const words = el.textContent.trim().split(" ");
     el.textContent = "";
 
@@ -75,97 +93,136 @@ function splitLines(selector) {
       span.textContent = word + " ";
       el.appendChild(span);
     });
+
+    el.dataset.splitApplied = "true";
   });
 }
 
-splitLines(".split");
-
-// GSAP — Animation des mots
-gsap.fromTo(
-  ".split",
-  { opacity: 0, y: 20 },
-  {
-    opacity: 1,
-    y: 0,
-    ease: "power3.out",
-    duration: 1.2,
-    stagger: 0.12,
-    delay: 0.3,
-  }
-);
+function animateSplits() {
+  // GSAP — Animation des mots
+  gsap.fromTo(
+    ".split",
+    { opacity: 0, y: 20 },
+    {
+      opacity: 1,
+      y: 0,
+      ease: "power3.out",
+      duration: 1.2,
+      stagger: 0.12,
+      delay: 0.3,
+    }
+  );
+}
 
 
 /* ============================================================
    SECTIONS — REVEAL ANIMATIONS
 ============================================================ */
 
-gsap.utils.toArray(".reveal").forEach(el => {
-  gsap.fromTo(
-    el,
-    { opacity: 0, y: 20 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: el,
-        start: "top 75%",
+function animateReveals() {
+  gsap.utils.toArray(".reveal").forEach(el => {
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 75%",
+        }
       }
-    }
-  );
-});
+    );
+  });
 
-gsap.utils.toArray(".reveal-up").forEach(el => {
-  gsap.fromTo(
-    el,
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: el,
-        start: "top 85%",
+  gsap.utils.toArray(".reveal-up").forEach(el => {
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+        }
       }
-    }
-  );
-});
+    );
+  });
+}
 
 
 /* ============================================================
    CARDS — FLOATING LUXE ENTRANCE
 ============================================================ */
 
-gsap.utils.toArray(".card").forEach(card => {
-  gsap.fromTo(
-    card,
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1,
-      y: 0,
-      duration: 1.3,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: card,
-        start: "top 90%",
+function animateCards() {
+  gsap.utils.toArray(".card").forEach(card => {
+    gsap.fromTo(
+      card,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1.3,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 90%",
+        }
       }
-    }
-  );
-});
+    );
+  });
+}
 
 
 /* ============================================================
    BACKGROUND DORÉ DYNAMIQUE
 ============================================================ */
-document.addEventListener("mousemove", (e) => {
-  const pos = (e.clientX / window.innerWidth) * 100;
-  root.style.setProperty("--pos", pos + "%");
-});
+function bindParallax() {
+  if (bindParallax.bound) return;
+
+  document.addEventListener("mousemove", (e) => {
+    const pos = (e.clientX / window.innerWidth) * 100;
+    root.style.setProperty("--pos", pos + "%");
+  });
+
+  bindParallax.bound = true;
+}
 
 
 /* ============================================================
    FOOTER — ANNÉE AUTOMATIQUE
 ============================================================ */
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/* ============================================================
+   ACCESSIBILITÉ : MODE RÉDUIT
+============================================================ */
+function applyReducedMotionState(matches) {
+  if (matches) {
+    root.classList.add("reduce-motion");
+    stopLenis();
+    document.querySelectorAll(".split, .reveal, .reveal-up, .card").forEach(el => {
+      el.style.opacity = 1;
+      el.style.transform = "none";
+    });
+  } else {
+    root.classList.remove("reduce-motion");
+    startLenis();
+    splitLines(".split");
+    animateSplits();
+    animateReveals();
+    animateCards();
+    bindParallax();
+  }
+}
+
+applyReducedMotionState(prefersReducedMotion.matches);
+prefersReducedMotion.addEventListener("change", (event) => {
+  applyReducedMotionState(event.matches);
+});

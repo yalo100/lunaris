@@ -74,6 +74,11 @@ body {
   transition: background var(--transition), color var(--transition);
 }
 
+:root.reduce-motion * {
+  animation-duration: 0s !important;
+  transition-duration: 0s !important;
+}
+
 /* -----------------------------------------------------
    BACKGROUND DORÉ DYNAMIQUE
 ----------------------------------------------------- */
