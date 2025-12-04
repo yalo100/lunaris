@@ -157,30 +157,6 @@ function animateReveals() {
 
 
 /* ============================================================
-   CARDS — FLOATING LUXE ENTRANCE
-============================================================ */
-
-function animateCards() {
-  gsap.utils.toArray(".card").forEach(card => {
-    gsap.fromTo(
-      card,
-      { opacity: 0, y: 40 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1.3,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top 90%",
-        }
-      }
-    );
-  });
-}
-
-
-/* ============================================================
    BACKGROUND DORÉ DYNAMIQUE
 ============================================================ */
 function bindParallax() {
@@ -217,7 +193,6 @@ function applyReducedMotionState(matches) {
     splitLines(".split");
     animateSplits();
     animateReveals();
-    animateCards();
     bindParallax();
   }
 }
