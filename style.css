@@ -180,6 +180,12 @@ body {
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 /* NAV */
 .nav {
   display: flex;
@@ -215,7 +221,7 @@ body {
   background: var(--surface);
   position: relative;
   cursor: pointer;
-  margin: 0 24px 0 16px;
+  margin-left: 10px;
   transition: background var(--transition), border var(--transition);
 }
 #theme-toggle .knob {
@@ -324,10 +330,19 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   box-shadow: var(--shadow1);
-  transform: translateY(40px);
-  opacity: 0;
   backdrop-filter: blur(4px);
   transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.card h3 {
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.card p {
+  color: var(--text-soft);
+  line-height: 1.5;
 }
 
 .card:hover {
