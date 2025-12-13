@@ -56,6 +56,7 @@ function setMenuState(open) {
 
   menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
   mobileMenu.hidden = !open;
+  mobileMenu.classList.toggle("is-open", open);
   document.body.classList.toggle("menu-open", open);
 }
 
