@@ -34,6 +34,9 @@ function stopLenis() {
 const header = document.getElementById("header");
 let lastScroll = 0;
 
+const menuToggle = document.getElementById("menu-toggle");
+const mobileMenu = document.getElementById("mobile-menu");
+
 function handleHeaderScroll() {
   const current = window.scrollY;
 
@@ -47,6 +50,27 @@ function handleHeaderScroll() {
 }
 
 window.addEventListener("scroll", handleHeaderScroll);
+
+function setMenuState(open) {
+  if (!menuToggle || !mobileMenu) return;
+
+  menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  mobileMenu.hidden = !open;
+  mobileMenu.classList.toggle("is-open", open);
+  document.body.classList.toggle("menu-open", open);
+}
+
+menuToggle?.addEventListener("click", () => {
+  setMenuState(Boolean(mobileMenu?.hidden));
+});
+
+mobileMenu?.querySelectorAll("a")?.forEach(link => {
+  link.addEventListener("click", () => setMenuState(false));
+});
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 720) setMenuState(false);
+});
 
 
 /* ============================================================
