@@ -35,9 +35,10 @@
         <nav class="nav">
           <a href="#hero">Accueil</a>
           <a href="#essence">Essence</a>
-          <a href="projects.html">Nos projets</a>
-          <a href="services.html">Nos tarifs</a>
+          <a href="#services2">Nos services</a>
           <a href="#why">Pourquoi</a>
+          <a href="services.html">Nos tarifs</a>
+          <a href="projects.html">Nos projets</a>
           <a href="#contact" class="cta">Contact</a>
         </nav>
 
@@ -85,78 +86,233 @@
     <section id="services2" class="section">
       <div class="section-header reveal">
         <h2>🌙 Lunaris – Nos Services</h2>
+        <p class="section-sub">Un carrousel unique pour explorer nos expertises, en douceur.</p>
       </div>
 
-      <div class="container cards">
-        <article class="card reveal-up">
-          <h3>Création de Sites Web</h3>
-          <p>Site Vitrine Professionnel</p>
-          <p>One-Page / Landing Page</p>
-          <p>Site Catalogue</p>
-          <p>Site E-commerce</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Applications</h3>
-          <p>Application Vitrine</p>
-          <p>Application Catalogue</p>
-          <p>Application de Réservation</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Identité Visuelle &amp; Branding</h3>
-          <p>Logo Professionnel</p>
-          <p>Mini Charte Graphique</p>
-          <p>Pack Branding Complet</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Réseaux Sociaux</h3>
-          <p>Création de Page Instagram Professionnelle</p>
-          <p>Création de Page TikTok Professionnelle</p>
-          <p>Création de Contenu Visuel</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Google Business &amp; Référencement Local</h3>
-          <p>Création / Optimisation Fiche Google Business</p>
-          <p>Photos &amp; Visuels pour Google</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Publicité &amp; Acquisition</h3>
-          <p>Google Ads</p>
-          <p>Meta Ads (Facebook &amp; Instagram)</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Packs Commerciaux</h3>
-          <p>Pack Start</p>
-          <p>Pack Boost</p>
-          <p>Pack E-commerce</p>
-        </article>
+      <div class="container">
+        <div class="services-carousel" data-carousel>
+          <button class="carousel-btn" data-carousel-prev aria-label="Service précédent">
+            <span>‹</span>
+          </button>
+
+          <div class="services-window" aria-live="polite">
+            <div class="services-track" data-carousel-track>
+              <article class="service-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">🪐</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Web</p>
+                  <h3>Création de Sites Web</h3>
+                  <ul class="service-list">
+                    <li>Site vitrine professionnel</li>
+                    <li>One-Page / Landing Page</li>
+                    <li>Site catalogue</li>
+                    <li>Site e-commerce</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">📱</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Apps</p>
+                  <h3>Applications</h3>
+                  <ul class="service-list">
+                    <li>Application vitrine</li>
+                    <li>Application catalogue</li>
+                    <li>Application de réservation</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">✒️</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Image</p>
+                  <h3>Identité Visuelle &amp; Branding</h3>
+                  <ul class="service-list">
+                    <li>Logo professionnel</li>
+                    <li>Mini charte graphique</li>
+                    <li>Pack branding complet</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">📡</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Social</p>
+                  <h3>Réseaux Sociaux</h3>
+                  <ul class="service-list">
+                    <li>Page Instagram professionnelle</li>
+                    <li>Page TikTok professionnelle</li>
+                    <li>Création de contenu visuel</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">📍</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Visibilité</p>
+                  <h3>Google Business &amp; Local</h3>
+                  <ul class="service-list">
+                    <li>Création / optimisation fiche Google Business</li>
+                    <li>Photos &amp; visuels pour Google</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">🎯</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Acquisition</p>
+                  <h3>Publicité &amp; Campagnes</h3>
+                  <ul class="service-list">
+                    <li>Google Ads</li>
+                    <li>Meta Ads (Facebook &amp; Instagram)</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">🔭</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Packs</p>
+                  <h3>Packs Commerciaux</h3>
+                  <ul class="service-list">
+                    <li>Pack Start</li>
+                    <li>Pack Boost</li>
+                    <li>Pack E-commerce</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <button class="carousel-btn" data-carousel-next aria-label="Service suivant">
+            <span>›</span>
+          </button>
+        </div>
       </div>
     </section>
 
     <!-- WHY -->
     <section id="why" class="section">
-      <h2 class="section-header reveal">Pourquoi Lunaris ?</h2>
+      <div class="section-header reveal">
+        <h2>Pourquoi Lunaris ?</h2>
+        <p class="section-sub">Un carrousel raffiné pour comprendre notre façon d’élever votre marque.</p>
+      </div>
 
-      <div class="container cards">
-        <article class="card reveal-up">
-          <h3>Service clé-en-main</h3>
-          <p>Nous créons toute votre identité digitale de A à Z. Résultat prêt à l’utilisation.</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Design Moderne &amp; Professionnel</h3>
-          <p>Votre marque obtient une image premium qui attire naturellement plus de clients.</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Simplicité &amp; Rapidité</h3>
-          <p>Vous nous donnez les informations, nous livrons. Sans stress, sans complication.</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Tarifs Accessibles</h3>
-          <p>Des solutions adaptées aux petits commerces et entrepreneurs locaux.</p>
-        </article>
-        <article class="card reveal-up">
-          <h3>Assistance et Support</h3>
-          <p>Nous restons disponibles même après la livraison.</p>
-        </article>
+      <div class="container">
+        <div class="services-carousel why-carousel" data-carousel>
+          <button class="carousel-btn" data-carousel-prev aria-label="Raison précédente">
+            <span>‹</span>
+          </button>
+
+          <div class="services-window" aria-live="polite">
+            <div class="services-track" data-carousel-track>
+              <article class="service-card why-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">🧭</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Clé-en-main</p>
+                  <h3>Un studio qui gère tout</h3>
+                  <ul class="service-list">
+                    <li>Identité, site, réseaux : une équipe unique</li>
+                    <li>Livrables prêts à utiliser immédiatement</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card why-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">🌗</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Signature</p>
+                  <h3>Design moderne &amp; premium</h3>
+                  <ul class="service-list">
+                    <li>Esthétique lunaris : contrastes, halo, élégance</li>
+                    <li>Image professionnelle qui attire naturellement</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card why-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">⚡</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Simplicité</p>
+                  <h3>Process rapide &amp; clair</h3>
+                  <ul class="service-list">
+                    <li>Vous partagez vos infos, nous orchestrons tout</li>
+                    <li>Livraison fluide, sans aller-retour interminable</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card why-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">💎</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Accessible</p>
+                  <h3>Tarifs maîtrisés</h3>
+                  <ul class="service-list">
+                    <li>Formules pensées pour entrepreneurs et commerces</li>
+                    <li>Clarté des coûts, sans surprise</li>
+                  </ul>
+                </div>
+              </article>
+
+              <article class="service-card why-card">
+                <div class="service-illustration" aria-hidden="true">
+                  <div class="service-halo"></div>
+                  <span class="service-icon">🤝</span>
+                </div>
+                <div class="service-content">
+                  <p class="eyebrow eyebrow--soft">Support</p>
+                  <h3>Accompagnement humain</h3>
+                  <ul class="service-list">
+                    <li>Disponibles après la mise en ligne</li>
+                    <li>Conseils et optimisations continues</li>
+                  </ul>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <button class="carousel-btn" data-carousel-next aria-label="Raison suivante">
+            <span>›</span>
+          </button>
+        </div>
       </div>
     </section>
 
