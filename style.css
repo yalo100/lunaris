@@ -693,6 +693,136 @@ body {
 }
 
 /* -----------------------------------------------------
+   SERVICES — CARROUSEL SIGNATURE
+----------------------------------------------------- */
+.services-carousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.services-window {
+  overflow: hidden;
+  width: 100%;
+}
+
+.services-track {
+  display: flex;
+  gap: 18px;
+  transition: transform .65s ease;
+}
+
+.service-card {
+  flex: 0 0 calc(33.333% - 12px);
+  border-radius: 22px;
+  padding: 24px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--surface) 90%, transparent), var(--surface2));
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  box-shadow: var(--shadow1);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  align-items: center;
+}
+
+.service-illustration {
+  width: 74px;
+  height: 74px;
+  border-radius: 22px;
+  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--gold) 60%, transparent), transparent 65%),
+    linear-gradient(135deg, color-mix(in srgb, var(--gold) 40%, var(--surface)), var(--surface));
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.service-halo {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--gold-light) 60%, transparent), transparent 60%);
+  opacity: .35;
+  filter: blur(6px);
+}
+
+.service-icon {
+  font-size: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.service-content h3 {
+  margin: 6px 0 10px;
+}
+
+.service-list {
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  color: var(--text-soft);
+  font-size: .98rem;
+}
+
+.service-list li::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+  background: color-mix(in srgb, var(--gold) 70%, transparent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--gold) 15%, transparent);
+}
+
+.eyebrow--soft {
+  color: var(--gold);
+  letter-spacing: .1em;
+}
+
+.carousel-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform .3s ease, border-color .3s ease, background .3s ease;
+}
+
+.carousel-btn:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--gold) 50%, var(--border));
+  background: color-mix(in srgb, var(--surface) 80%, var(--gold) 10%);
+}
+
+.carousel-btn:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.carousel-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: .12em;
+}
+
+.carousel-indicator .separator {
+  color: var(--border);
+}
+
+/* -----------------------------------------------------
    PROJECTS PAGE
 ----------------------------------------------------- */
 .projects-hero {
@@ -969,6 +1099,7 @@ body {
    RESPONSIVE
 ----------------------------------------------------- */
 @media (max-width: 980px) {
+  .service-card { flex: 0 0 calc(50% - 10px); }
   .cards { grid-template-columns: 1fr 1fr; }
   .cards--wide { grid-template-columns: 1fr; }
   .page-hero { padding: 140px 0 60px; }
@@ -995,6 +1126,12 @@ body {
     gap: 10px 12px;
     width: 100%;
   }
+
+  .services-carousel { flex-direction: column; align-items: stretch; }
+  .carousel-btn { align-self: center; }
+  .services-track { width: 100%; }
+  .service-card { flex: 0 0 100%; grid-template-columns: 1fr; }
+  .service-illustration { width: 64px; height: 64px; }
 
   .nav a {
     padding: 6px 10px;
