@@ -2,6 +2,7 @@
    VARIABLES (DARK MODE)
 ----------------------------------------------------- */
 :root {
+  --header-height: 76px;
   --bg: #0c0c0c;
   --text: #ffffff;
   --text-soft: #dcdcdc;
@@ -136,6 +137,7 @@ body {
   position: fixed;
   top: 0; left: 0;
   width: 100%;
+  min-height: var(--header-height);
   backdrop-filter: blur(14px) saturate(160%);
   background: var(--header-bg);
   border-bottom: 1px solid var(--header-border);
@@ -186,6 +188,103 @@ body {
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.desktop-nav {
+  display: flex;
+}
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition), border var(--transition), color var(--transition);
+}
+
+.menu-toggle:hover {
+  background: var(--surface2);
+}
+
+@media (min-width: 701px) {
+  #mobile-menu {
+    display: none !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: calc(var(--header-height) + 12px) 20px 28px;
+    background: color-mix(in srgb, var(--bg) 90%, rgba(0,0,0,0.92));
+    border-top: 1px solid var(--header-border);
+    box-shadow: var(--shadow2);
+    z-index: 30;
+    height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    visibility: hidden;
+    transition: opacity var(--transition), transform var(--transition);
+  }
+
+  .mobile-menu.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+    visibility: visible;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .mobile-nav a {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: var(--surface2);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 500;
+    border: 1px solid var(--border);
+  }
+
+  .mobile-nav a.active {
+    border-color: var(--gold);
+    color: var(--gold-light);
+  }
+
+  .mobile-cta {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+body.menu-open {
+  overflow: hidden;
 }
 
 .header-controls {
