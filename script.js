@@ -157,6 +157,72 @@ function animateReveals() {
 
 
 /* ============================================================
+   SERVICES — CARROUSEL
+============================================================ */
+function initServiceCarousel() {
+  const carousel = document.querySelector("[data-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-carousel-track]");
+  const slides = Array.from(track?.children || []);
+  const prevBtn = carousel.querySelector("[data-carousel-prev]");
+  const nextBtn = carousel.querySelector("[data-carousel-next]");
+  const currentEl = document.querySelector("[data-carousel-current]");
+  const totalEl = document.querySelector("[data-carousel-total]");
+
+  if (!slides.length) return;
+
+  totalEl.textContent = slides.length;
+
+  const getVisibleCount = () => {
+    if (window.matchMedia("(max-width: 700px)").matches) return 1;
+    if (window.matchMedia("(max-width: 980px)").matches) return 2;
+    return 3;
+  };
+
+  const getGap = () => parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0);
+
+  const getOffset = () => {
+    const width = slides[0].getBoundingClientRect().width;
+    return width + getGap();
+  };
+
+  const clampIndex = (value) => {
+    const max = Math.max(0, slides.length - getVisibleCount());
+    return Math.min(Math.max(value, 0), max);
+  };
+
+  let index = 0;
+
+  const update = () => {
+    const offset = index * getOffset();
+    track.style.transform = `translateX(-${offset}px)`;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index >= slides.length - getVisibleCount();
+
+    if (currentEl) currentEl.textContent = index + 1;
+  };
+
+  prevBtn?.addEventListener("click", () => {
+    index = clampIndex(index - 1);
+    update();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    index = clampIndex(index + 1);
+    update();
+  });
+
+  window.addEventListener("resize", () => {
+    index = clampIndex(index);
+    update();
+  });
+
+  update();
+}
+
+
+/* ============================================================
    BACKGROUND DORÉ DYNAMIQUE
 ============================================================ */
 function bindParallax() {
@@ -183,7 +249,7 @@ function applyReducedMotionState(matches) {
   if (matches) {
     root.classList.add("reduce-motion");
     stopLenis();
-    document.querySelectorAll(".split, .reveal, .reveal-up, .card").forEach(el => {
+    document.querySelectorAll(".split, .reveal, .reveal-up, .card, .service-card").forEach(el => {
       el.style.opacity = 1;
       el.style.transform = "none";
     });
@@ -201,3 +267,5 @@ applyReducedMotionState(prefersReducedMotion.matches);
 prefersReducedMotion.addEventListener("change", (event) => {
   applyReducedMotionState(event.matches);
 });
+
+initServiceCarousel();
