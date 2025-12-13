@@ -699,25 +699,33 @@ body {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
+  padding: 18px;
+  border-radius: 26px;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--surface) 90%, transparent), var(--surface2));
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  box-shadow: var(--shadow1);
 }
 
 .services-window {
   overflow: hidden;
   width: 100%;
+  border-radius: 18px;
 }
 
 .services-track {
   display: flex;
   gap: 18px;
   transition: transform .65s ease;
+  will-change: transform;
 }
 
 .service-card {
   flex: 0 0 calc(33.333% - 12px);
   border-radius: 22px;
-  padding: 24px;
-  background: linear-gradient(145deg, color-mix(in srgb, var(--surface) 90%, transparent), var(--surface2));
+  padding: 22px;
+  background: radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 55%),
+    linear-gradient(145deg, color-mix(in srgb, var(--surface) 90%, transparent), var(--surface2));
   border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
   box-shadow: var(--shadow1);
   display: grid;
@@ -812,7 +820,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 18px;
   color: var(--muted);
   font-weight: 500;
   letter-spacing: .12em;
