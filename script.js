@@ -157,7 +157,22 @@ function animateReveals() {
 
 
 /* ============================================================
-   CARROUSELS (Services + Pourquoi)
+   SERVICES — CARROUSEL
+============================================================ */
+function initServiceCarousel() {
+  const carousel = document.querySelector("[data-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-carousel-track]");
+  const slides = Array.from(track?.children || []);
+  const prevBtn = carousel.querySelector("[data-carousel-prev]");
+  const nextBtn = carousel.querySelector("[data-carousel-next]");
+  const currentEl = document.querySelector("[data-carousel-current]");
+  const totalEl = document.querySelector("[data-carousel-total]");
+
+  if (!slides.length) return;
+
+  totalEl.textContent = slides.length;
 
   const getVisibleCount = () => {
     if (window.matchMedia("(max-width: 700px)").matches) return 1;
@@ -165,63 +180,45 @@ function animateReveals() {
     return 3;
   };
 
-  const instances = carousels.map((carousel) => {
-    const track = carousel.querySelector("[data-carousel-track]");
-    const slides = Array.from(track?.children || []);
-    const prevBtn = carousel.querySelector("[data-carousel-prev]");
-    const nextBtn = carousel.querySelector("[data-carousel-next]");
-    const currentEl = carousel.querySelector("[data-carousel-current]");
-    const totalEl = carousel.querySelector("[data-carousel-total]");
+  const getGap = () => parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0);
 
-    if (!track || !slides.length) return null;
+  const getOffset = () => {
+    const width = slides[0].getBoundingClientRect().width;
+    return width + getGap();
+  };
 
-    if (totalEl) totalEl.textContent = slides.length;
+  const clampIndex = (value) => {
+    const max = Math.max(0, slides.length - getVisibleCount());
+    return Math.min(Math.max(value, 0), max);
+  };
 
-    const getGap = () => parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0);
+  let index = 0;
 
-    const getOffset = () => {
-      const width = slides[0].getBoundingClientRect().width;
-      return width + getGap();
-    };
+  const update = () => {
+    const offset = index * getOffset();
+    track.style.transform = `translateX(-${offset}px)`;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index >= slides.length - getVisibleCount();
 
-    const clampIndex = (value) => {
-      const max = Math.max(0, slides.length - getVisibleCount());
-      return Math.min(Math.max(value, 0), max);
-    };
+    if (currentEl) currentEl.textContent = index + 1;
+  };
 
-    let index = 0;
-
-    const update = () => {
-      const offset = index * getOffset();
-      track.style.transform = `translateX(-${offset}px)`;
-
-      if (prevBtn) prevBtn.disabled = index === 0;
-      if (nextBtn) nextBtn.disabled = index >= slides.length - getVisibleCount();
-      if (currentEl) currentEl.textContent = Math.min(index + 1, slides.length);
-    };
-
-    prevBtn?.addEventListener("click", () => {
-      index = clampIndex(index - 1);
-      update();
-    });
-
-    nextBtn?.addEventListener("click", () => {
-      index = clampIndex(index + 1);
-      update();
-    });
-
-    const handleResize = () => {
-      index = clampIndex(index);
-      update();
-    };
-
-    window.addEventListener("resize", handleResize);
+  prevBtn?.addEventListener("click", () => {
+    index = clampIndex(index - 1);
     update();
+  });
 
-    return { update, clampIndex, handleResize };
-  }).filter(Boolean);
+  nextBtn?.addEventListener("click", () => {
+    index = clampIndex(index + 1);
+    update();
+  });
 
-  return instances;
+  window.addEventListener("resize", () => {
+    index = clampIndex(index);
+    update();
+  });
+
+  update();
 }
 
 
@@ -271,4 +268,4 @@ prefersReducedMotion.addEventListener("change", (event) => {
   applyReducedMotionState(event.matches);
 });
 
-initCarousels();
+initServiceCarousel();
