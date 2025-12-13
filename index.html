@@ -32,7 +32,7 @@
     </div>
 
     <div class="header-actions">
-        <nav class="nav">
+        <nav class="nav desktop-nav">
           <a href="#hero">Accueil</a>
           <a href="#essence">Essence</a>
           <a href="#services2">Nos services</a>
@@ -42,11 +42,28 @@
           <a href="#contact" class="cta">Contact</a>
         </nav>
 
-      <button id="theme-toggle" aria-label="Changer de thème">
-        <span class="knob"></span>
-      </button>
+        <div class="header-controls">
+          <button id="theme-toggle" aria-label="Changer de thème">
+            <span class="knob"></span>
+          </button>
+          <button id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">
+            Menu
+          </button>
+        </div>
     </div>
 
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <nav class="mobile-nav">
+      <a href="#hero">Accueil</a>
+      <a href="#essence">Essence</a>
+      <a href="#services2">Nos services</a>
+      <a href="#why">Pourquoi</a>
+      <a href="services.html">Nos tarifs</a>
+      <a href="projects.html">Nos projets</a>
+    </nav>
+    <a href="#contact" class="btn mobile-cta">Contact</a>
   </div>
  </header>
 
