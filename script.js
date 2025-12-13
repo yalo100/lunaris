@@ -55,13 +55,14 @@ function setMenuState(open) {
   if (!menuToggle || !mobileMenu) return;
 
   menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
-  mobileMenu.hidden = !open;
+  mobileMenu.setAttribute("aria-hidden", open ? "false" : "true");
   mobileMenu.classList.toggle("is-open", open);
   document.body.classList.toggle("menu-open", open);
 }
 
 menuToggle?.addEventListener("click", () => {
-  setMenuState(Boolean(mobileMenu?.hidden));
+  const isOpen = mobileMenu?.classList.contains("is-open");
+  setMenuState(!isOpen);
 });
 
 mobileMenu?.querySelectorAll("a")?.forEach(link => {
@@ -69,7 +70,7 @@ mobileMenu?.querySelectorAll("a")?.forEach(link => {
 });
 
 window.addEventListener("resize", () => {
-  if (window.innerWidth > 720) setMenuState(false);
+  if (window.innerWidth > 700) setMenuState(false);
 });
 
 
