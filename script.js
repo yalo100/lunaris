@@ -158,10 +158,6 @@ function animateReveals() {
 
 /* ============================================================
    CARROUSELS (Services + Pourquoi)
-============================================================ */
-function initCarousels() {
-  const carousels = Array.from(document.querySelectorAll("[data-carousel]"));
-  if (!carousels.length) return;
 
   const getVisibleCount = () => {
     if (window.matchMedia("(max-width: 700px)").matches) return 1;
