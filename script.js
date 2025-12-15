@@ -81,8 +81,9 @@ const themeToggle = document.getElementById("theme-toggle");
 const root = document.documentElement;
 
 function applyTheme(theme) {
-  if (theme === "light") root.classList.add("light");
-  else root.classList.remove("light");
+  const isLight = theme === "light";
+  root.classList.toggle("light", isLight);
+  themeToggle?.setAttribute("aria-pressed", isLight ? "true" : "false");
 }
 
 function toggleTheme() {
@@ -92,10 +93,11 @@ function toggleTheme() {
   localStorage.setItem("theme", next);
 }
 
-themeToggle.addEventListener("click", toggleTheme);
+themeToggle?.addEventListener("click", toggleTheme);
 
-// Charger thème sauvegardé
-applyTheme(localStorage.getItem("theme"));
+// Charger thème sauvegardé ou préférences système
+const savedTheme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+applyTheme(savedTheme);
 
 
 /* ============================================================
@@ -185,19 +187,8 @@ function animateReveals() {
    SERVICES — CARROUSEL
 ============================================================ */
 function initServiceCarousel() {
-  const carousel = document.querySelector("[data-carousel]");
-  if (!carousel) return;
-
-  const track = carousel.querySelector("[data-carousel-track]");
-  const slides = Array.from(track?.children || []);
-  const prevBtn = carousel.querySelector("[data-carousel-prev]");
-  const nextBtn = carousel.querySelector("[data-carousel-next]");
-  const currentEl = document.querySelector("[data-carousel-current]");
-  const totalEl = document.querySelector("[data-carousel-total]");
-
-  if (!slides.length) return;
-
-  totalEl.textContent = slides.length;
+  const carousels = document.querySelectorAll("[data-carousel]");
+  if (!carousels.length) return;
 
   const getVisibleCount = () => {
     if (window.matchMedia("(max-width: 700px)").matches) return 1;
@@ -205,45 +196,64 @@ function initServiceCarousel() {
     return 3;
   };
 
-  const getGap = () => parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0);
+  carousels.forEach((carousel) => {
+    const track = carousel.querySelector("[data-carousel-track]");
+    const slides = Array.from(track?.children || []);
+    const prevBtn = carousel.querySelector("[data-carousel-prev]");
+    const nextBtn = carousel.querySelector("[data-carousel-next]");
+    const windowEl = carousel.querySelector(".services-window");
+    const scope = carousel.parentElement;
+    const currentEl = scope?.querySelector("[data-carousel-current]");
+    const totalEl = scope?.querySelector("[data-carousel-total]");
 
-  const getOffset = () => {
-    const width = slides[0].getBoundingClientRect().width;
-    return width + getGap();
-  };
+    if (!slides.length || !track) return;
 
-  const clampIndex = (value) => {
-    const max = Math.max(0, slides.length - getVisibleCount());
-    return Math.min(Math.max(value, 0), max);
-  };
+    if (totalEl) totalEl.textContent = slides.length;
 
-  let index = 0;
+    const clampIndex = (value) => Math.min(Math.max(value, 0), slides.length - 1);
 
-  const update = () => {
-    const offset = index * getOffset();
-    track.style.transform = `translateX(-${offset}px)`;
-    prevBtn.disabled = index === 0;
-    nextBtn.disabled = index >= slides.length - getVisibleCount();
+    const getMaxOffset = () => {
+      const windowWidth = windowEl?.getBoundingClientRect().width || 0;
+      return Math.max(0, track.scrollWidth - windowWidth);
+    };
 
-    if (currentEl) currentEl.textContent = index + 1;
-  };
+    const getOffsetForIndex = (value) => {
+      const slide = slides[value];
+      if (!slide) return 0;
 
-  prevBtn?.addEventListener("click", () => {
-    index = clampIndex(index - 1);
+      const slideBox = slide.getBoundingClientRect();
+      const trackBox = track.getBoundingClientRect();
+      return slideBox.left - trackBox.left;
+    };
+
+    let index = 0;
+
+    const update = () => {
+      const offset = Math.min(getOffsetForIndex(index), getMaxOffset());
+      track.style.transform = `translateX(-${offset}px)`;
+      if (prevBtn) prevBtn.disabled = offset <= 0;
+      if (nextBtn) nextBtn.disabled = offset >= getMaxOffset() - 1;
+
+      if (currentEl) currentEl.textContent = index + 1;
+    };
+
+    prevBtn?.addEventListener("click", () => {
+      index = clampIndex(index - 1);
+      update();
+    });
+
+    nextBtn?.addEventListener("click", () => {
+      index = clampIndex(index + 1);
+      update();
+    });
+
+    window.addEventListener("resize", () => {
+      index = clampIndex(index);
+      update();
+    });
+
     update();
   });
-
-  nextBtn?.addEventListener("click", () => {
-    index = clampIndex(index + 1);
-    update();
-  });
-
-  window.addEventListener("resize", () => {
-    index = clampIndex(index);
-    update();
-  });
-
-  update();
 }
 
 
