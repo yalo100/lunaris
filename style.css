@@ -1026,6 +1026,10 @@ body.menu-open {
   align-items: center;
 }
 
+.offer-card {
+  flex: 0 0 calc(33.333% - 12px);
+}
+
 .service-illustration {
   width: 74px;
   height: 74px;
@@ -1412,6 +1416,7 @@ body.menu-open {
   .page-hero { padding: 140px 0 60px; }
   .card { padding: 20px; }
   .service-card { flex: 0 0 calc(50% - 10px); }
+  .offer-card { flex: 0 0 calc(50% - 10px); }
   .cards { grid-template-columns: 1fr 1fr; }
   .cards--wide { grid-template-columns: 1fr; }
   .note-inner { grid-template-columns: 1fr; }
@@ -1449,6 +1454,7 @@ body.menu-open {
   .carousel-btn { align-self: center; }
   .services-track { width: 100%; }
   .service-card { flex: 0 0 100%; grid-template-columns: 1fr; }
+  .offer-card { flex: 0 0 100%; }
   .service-illustration { width: 64px; height: 64px; }
 
   .cards { grid-template-columns: 1fr; }
