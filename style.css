@@ -1155,6 +1155,7 @@ body.menu-open {
 .projects-grid {
   display: flex;
   gap: 24px;
+  flex-wrap: nowrap;
   transition: transform .55s ease;
   will-change: transform;
 }
