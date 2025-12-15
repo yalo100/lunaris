@@ -81,8 +81,9 @@ const themeToggle = document.getElementById("theme-toggle");
 const root = document.documentElement;
 
 function applyTheme(theme) {
-  if (theme === "light") root.classList.add("light");
-  else root.classList.remove("light");
+  const isLight = theme === "light";
+  root.classList.toggle("light", isLight);
+  themeToggle?.setAttribute("aria-pressed", isLight ? "true" : "false");
 }
 
 function toggleTheme() {
@@ -92,10 +93,11 @@ function toggleTheme() {
   localStorage.setItem("theme", next);
 }
 
-themeToggle.addEventListener("click", toggleTheme);
+themeToggle?.addEventListener("click", toggleTheme);
 
-// Charger thème sauvegardé
-applyTheme(localStorage.getItem("theme"));
+// Charger thème sauvegardé ou préférences système
+const savedTheme = localStorage.getItem("theme") || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+applyTheme(savedTheme);
 
 
 /* ============================================================
