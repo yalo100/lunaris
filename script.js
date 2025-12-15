@@ -258,6 +258,98 @@ function initServiceCarousel() {
 
 
 /* ============================================================
+   PROJECTS — CARROUSEL
+============================================================ */
+function initProjectsCarousel() {
+  const carousel = document.querySelector("[data-projects-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-projects-track]");
+  const slides = Array.from(track?.children || []);
+  const prevBtn = carousel.querySelector("[data-projects-prev]");
+  const nextBtn = carousel.querySelector("[data-projects-next]");
+  const windowEl = carousel.querySelector(".projects-window");
+
+  if (!track || !slides.length || !windowEl) return;
+
+  const clonesBefore = slides.map((slide) => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    return clone;
+  });
+
+  const clonesAfter = slides.map((slide) => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    return clone;
+  });
+
+  clonesBefore.forEach((clone) => track.insertBefore(clone, track.firstChild));
+  clonesAfter.forEach((clone) => track.appendChild(clone));
+
+  const allSlides = Array.from(track.children);
+
+  const getOffsetForIndex = (value) => {
+    const slide = allSlides[value];
+    if (!slide) return 0;
+
+    const trackRect = track.getBoundingClientRect();
+    const slideRect = slide.getBoundingClientRect();
+    return slideRect.left - trackRect.left;
+  };
+
+  const originalCount = slides.length;
+  const firstOriginalIndex = originalCount;
+  let index = firstOriginalIndex;
+
+  const setTransition = (enable) => {
+    track.style.transition = enable ? "transform .55s ease" : "none";
+  };
+
+  const update = (jump = false) => {
+    const offset = getOffsetForIndex(index);
+    setTransition(!jump);
+    track.style.transform = `translateX(-${offset}px)`;
+
+    if (jump) {
+      requestAnimationFrame(() => setTransition(true));
+    }
+  };
+
+  const normalizeIndex = () => {
+    if (index >= originalCount * 2) {
+      index -= originalCount;
+      update(true);
+    }
+
+    if (index < originalCount) {
+      index += originalCount;
+      update(true);
+    }
+  };
+
+  prevBtn?.addEventListener("click", () => {
+    index -= 1;
+    update();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    index += 1;
+    update();
+  });
+
+  track.addEventListener("transitionend", normalizeIndex);
+
+  window.addEventListener("resize", () => {
+    normalizeIndex();
+    update(true);
+  });
+
+  update(true);
+}
+
+
+/* ============================================================
    BACKGROUND DORÉ DYNAMIQUE
 ============================================================ */
 function bindParallax() {
@@ -303,4 +395,5 @@ prefersReducedMotion.addEventListener("change", (event) => {
   applyReducedMotionState(event.matches);
 });
 
+initProjectsCarousel();
 initServiceCarousel();
