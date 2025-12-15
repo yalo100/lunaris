@@ -1030,6 +1030,10 @@ body.menu-open {
   flex: 0 0 calc(33.333% - 12px);
 }
 
+.offer-card {
+  flex: 0 0 calc(33.333% - 12px);
+}
+
 .service-illustration {
   width: 74px;
   height: 74px;

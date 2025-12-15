@@ -201,6 +201,7 @@ function initServiceCarousel() {
     const slides = Array.from(track?.children || []);
     const prevBtn = carousel.querySelector("[data-carousel-prev]");
     const nextBtn = carousel.querySelector("[data-carousel-next]");
+    const windowEl = carousel.querySelector(".services-window");
     const scope = carousel.parentElement;
     const currentEl = scope?.querySelector("[data-carousel-current]");
     const totalEl = scope?.querySelector("[data-carousel-total]");
@@ -209,25 +210,29 @@ function initServiceCarousel() {
 
     if (totalEl) totalEl.textContent = slides.length;
 
-    const getGap = () => parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0);
+    const clampIndex = (value) => Math.min(Math.max(value, 0), slides.length - 1);
 
-    const getOffset = () => {
-      const width = slides[0].getBoundingClientRect().width;
-      return width + getGap();
+    const getMaxOffset = () => {
+      const windowWidth = windowEl?.getBoundingClientRect().width || 0;
+      return Math.max(0, track.scrollWidth - windowWidth);
     };
 
-    const clampIndex = (value) => {
-      const max = Math.max(0, slides.length - getVisibleCount());
-      return Math.min(Math.max(value, 0), max);
+    const getOffsetForIndex = (value) => {
+      const slide = slides[value];
+      if (!slide) return 0;
+
+      const slideBox = slide.getBoundingClientRect();
+      const trackBox = track.getBoundingClientRect();
+      return slideBox.left - trackBox.left;
     };
 
     let index = 0;
 
     const update = () => {
-      const offset = index * getOffset();
+      const offset = Math.min(getOffsetForIndex(index), getMaxOffset());
       track.style.transform = `translateX(-${offset}px)`;
-      if (prevBtn) prevBtn.disabled = index === 0;
-      if (nextBtn) nextBtn.disabled = index >= slides.length - getVisibleCount();
+      if (prevBtn) prevBtn.disabled = offset <= 0;
+      if (nextBtn) nextBtn.disabled = offset >= getMaxOffset() - 1;
 
       if (currentEl) currentEl.textContent = index + 1;
     };
