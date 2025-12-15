@@ -828,10 +828,8 @@ body.menu-open {
    SECTIONS
 ----------------------------------------------------- */
 .section {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-height: auto;
+  padding: 120px 0;
 }
 
 .investments {
@@ -1026,6 +1024,10 @@ body.menu-open {
   grid-template-columns: auto 1fr;
   gap: 18px;
   align-items: center;
+}
+
+.offer-card {
+  flex: 0 0 calc(33.333% - 12px);
 }
 
 .service-illustration {
@@ -1414,6 +1416,7 @@ body.menu-open {
   .page-hero { padding: 140px 0 60px; }
   .card { padding: 20px; }
   .service-card { flex: 0 0 calc(50% - 10px); }
+  .offer-card { flex: 0 0 calc(50% - 10px); }
   .cards { grid-template-columns: 1fr 1fr; }
   .cards--wide { grid-template-columns: 1fr; }
   .note-inner { grid-template-columns: 1fr; }
@@ -1451,17 +1454,41 @@ body.menu-open {
   .carousel-btn { align-self: center; }
   .services-track { width: 100%; }
   .service-card { flex: 0 0 100%; grid-template-columns: 1fr; }
+  .offer-card { flex: 0 0 100%; }
   .service-illustration { width: 64px; height: 64px; }
 
   .cards { grid-template-columns: 1fr; }
   .page-hero { padding: 126px 0 64px; }
-  .section { padding: 96px 0; }
+  .hero {
+    min-height: 100vh;
+    padding: calc(var(--header-height) + 60px) 0 60px;
+  }
+
+  .hero-inner { padding-top: 18px; }
+
+  .section {
+    min-height: calc(100vh - var(--header-height));
+    padding: 120px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #essence.section {
+    padding-top: 140px;
+    padding-bottom: 140px;
+  }
   .card-head { flex-direction: column; align-items: flex-start; }
   .projects-grid { grid-template-columns: 1fr; }
+
+  :root:not(.light) { --pos: 18%; }
 }
 
 @media (max-width: 540px) {
-  .hero { min-height: auto; padding: 110px 0 70px; }
+  .hero {
+    min-height: 100vh;
+    padding: calc(var(--header-height) + 50px) 0 70px;
+  }
   .hero-title { font-size: clamp(2rem, 9vw, 2.8rem); }
   .hero-sub { font-size: 1rem; }
   .hero-actions { flex-direction: column; align-items: stretch; }
@@ -1469,10 +1496,22 @@ body.menu-open {
   .btn,
   .btn.btn--ghost { width: 100%; text-align: center; }
 
-  .section { padding: 88px 0; }
+  .section {
+    min-height: calc(100vh - var(--header-height));
+    padding: 110px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   .container { width: 94%; }
   .card { padding: 18px; }
   .cards { gap: 16px; }
   .pill { width: 100%; text-align: center; }
   .header-container { gap: 10px; }
+}
+
+@media (min-width: 1200px) {
+  .section { padding: 160px 0; }
+  .investments { padding: 120px 0; }
+  #essence.section { padding-top: 190px; padding-bottom: 190px; }
 }
