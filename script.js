@@ -294,7 +294,8 @@ function initProjectsCarousel() {
   const getMaxIndex = () => {
     const span = getSlideSpan();
     if (!span) return slides.length - 1;
-    const visible = Math.max(1, Math.round(windowEl.getBoundingClientRect().width / span));
+    // Floor to ensure we always allow sliding when a new card is partially visible
+    const visible = Math.max(1, Math.floor(windowEl.getBoundingClientRect().width / span));
     return Math.max(0, slides.length - visible);
   };
 
