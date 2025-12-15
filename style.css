@@ -1503,3 +1503,9 @@ body.menu-open {
   .pill { width: 100%; text-align: center; }
   .header-container { gap: 10px; }
 }
+
+@media (min-width: 1200px) {
+  .section { padding: 160px 0; }
+  .investments { padding: 120px 0; }
+  #essence.section { padding-top: 190px; padding-bottom: 190px; }
+}
