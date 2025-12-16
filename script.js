@@ -258,6 +258,66 @@ function initServiceCarousel() {
 
 
 /* ============================================================
+   PROJECTS — CARROUSEL
+============================================================ */
+function initProjectsCarousel() {
+  const carousel = document.querySelector("[data-projects-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-projects-track]");
+  const slides = Array.from(track?.children || []);
+  const prevBtn = carousel.querySelector("[data-projects-prev]");
+  const nextBtn = carousel.querySelector("[data-projects-next]");
+  const windowEl = carousel.querySelector(".projects-window");
+
+  if (!track || !slides.length || !windowEl) return;
+
+  let index = 0;
+
+  const clampIndex = (value) => Math.min(Math.max(value, 0), slides.length - 1);
+
+  const getMaxOffset = () => Math.max(0, track.scrollWidth - windowEl.clientWidth);
+
+  const slideOffset = (value) => {
+    const slide = slides[value];
+    return slide ? slide.offsetLeft : 0;
+  };
+
+  const alignIndexToViewport = () => {
+    const maxOffset = getMaxOffset();
+    while (index > 0 && slideOffset(index) > maxOffset + 1) {
+      index -= 1;
+    }
+  };
+
+  const update = () => {
+    alignIndexToViewport();
+    const maxOffset = getMaxOffset();
+    const offset = Math.min(slideOffset(index), maxOffset);
+
+    track.style.transform = `translateX(-${offset}px)`;
+
+    if (prevBtn) prevBtn.disabled = index <= 0;
+    if (nextBtn) nextBtn.disabled = offset >= maxOffset - 1;
+  };
+
+  prevBtn?.addEventListener("click", () => {
+    index = clampIndex(index - 1);
+    update();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    index = clampIndex(index + 1);
+    update();
+  });
+
+  window.addEventListener("resize", update);
+
+  update();
+}
+
+
+/* ============================================================
    BACKGROUND DORÉ DYNAMIQUE
 ============================================================ */
 function bindParallax() {
@@ -303,4 +363,5 @@ prefersReducedMotion.addEventListener("change", (event) => {
   applyReducedMotionState(event.matches);
 });
 
+initProjectsCarousel();
 initServiceCarousel();
