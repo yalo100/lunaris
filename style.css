@@ -1141,15 +1141,25 @@ body.menu-open {
   padding: 40px 0 120px;
 }
 
-.projects-carousel {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 14px;
+.projects-strip {
+  overflow-x: auto;
+  overflow-y: visible;
+  padding: 8px 4px 12px;
+  margin: 0 -4px;
+  scroll-behavior: smooth;
 }
 
-.projects-window {
-  overflow: hidden;
+.projects-strip::-webkit-scrollbar {
+  height: 10px;
+}
+
+.projects-strip::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+.projects-strip::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .projects-grid {
@@ -1157,8 +1167,8 @@ body.menu-open {
   gap: 24px;
   flex-wrap: nowrap;
   justify-content: flex-start;
-  transition: transform .55s ease;
-  will-change: transform;
+  width: max-content;
+  scroll-snap-type: x mandatory;
 }
 
 .project-card {
@@ -1314,7 +1324,6 @@ body.menu-open {
   .cards { grid-template-columns: 1fr 1fr; }
   .cards--wide { grid-template-columns: 1fr; }
   .note-inner { grid-template-columns: 1fr; }
-  .projects-carousel { grid-template-columns: 1fr; }
   .project-card { flex-basis: clamp(280px, 60vw, 360px); }
 }
 
@@ -1374,7 +1383,6 @@ body.menu-open {
     padding-bottom: 140px;
   }
   .card-head { flex-direction: column; align-items: flex-start; }
-  .projects-carousel { grid-template-columns: 1fr; gap: 18px; }
   .projects-grid { gap: 18px; }
   .project-card { flex-basis: min(86vw, 360px); }
 
