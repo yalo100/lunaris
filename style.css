@@ -1156,6 +1156,7 @@ body.menu-open {
   display: flex;
   gap: 24px;
   flex-wrap: nowrap;
+  justify-content: flex-start;
   transition: transform .55s ease;
   will-change: transform;
 }
@@ -1314,7 +1315,6 @@ body.menu-open {
   .cards--wide { grid-template-columns: 1fr; }
   .note-inner { grid-template-columns: 1fr; }
   .projects-carousel { grid-template-columns: 1fr; }
-  .projects-grid { justify-content: center; }
   .project-card { flex-basis: clamp(280px, 60vw, 360px); }
 }
 
