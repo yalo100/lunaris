@@ -344,6 +344,346 @@ function initProjectsCarousel() {
 
 
 /* ============================================================
+   PROJECTS — CARROUSEL
+============================================================ */
+function initProjectsCarousel() {
+  const carousel = document.querySelector("[data-projects-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-projects-track]");
+  const slides = Array.from(track?.children || []);
+  const prevBtn = carousel.querySelector("[data-projects-prev]");
+  const nextBtn = carousel.querySelector("[data-projects-next]");
+  const windowEl = carousel.querySelector(".projects-window");
+
+  if (!track || !slides.length || !windowEl) return;
+
+  const clonesBefore = slides.map((slide) => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    return clone;
+  });
+
+  const clonesAfter = slides.map((slide) => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    return clone;
+  });
+
+  clonesBefore.forEach((clone) => track.insertBefore(clone, track.firstChild));
+  clonesAfter.forEach((clone) => track.appendChild(clone));
+
+  const allSlides = Array.from(track.children);
+
+  const getOffsetForIndex = (value) => {
+    const slide = allSlides[value];
+    if (!slide) return 0;
+    return slide.offsetLeft;
+  };
+
+  const originalCount = slides.length;
+  const firstOriginalIndex = originalCount;
+  let index = firstOriginalIndex;
+
+  const setTransition = (enable) => {
+    track.style.transition = enable ? "transform .55s ease" : "none";
+  };
+
+  const update = (jump = false) => {
+    const offset = getOffsetForIndex(index);
+    setTransition(!jump);
+    track.style.transform = `translateX(-${offset}px)`;
+
+    if (jump) {
+      requestAnimationFrame(() => setTransition(true));
+    }
+  };
+
+  const normalizeIndex = () => {
+    if (index >= originalCount * 2) {
+      index -= originalCount;
+      update(true);
+    }
+
+    if (index < originalCount) {
+      index += originalCount;
+      update(true);
+    }
+  };
+
+  prevBtn?.addEventListener("click", () => {
+    index -= 1;
+    update();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    index += 1;
+    update();
+  });
+
+  track.addEventListener("transitionend", normalizeIndex);
+
+  window.addEventListener("resize", () => {
+    normalizeIndex();
+    update(true);
+  });
+
+  update(true);
+}
+
+
+/* ============================================================
+   PROJECTS — CARROUSEL
+============================================================ */
+function initProjectsCarousel() {
+  const carousel = document.querySelector("[data-projects-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-projects-track]");
+  const slides = Array.from(track?.children || []);
+  const prevBtn = carousel.querySelector("[data-projects-prev]");
+  const nextBtn = carousel.querySelector("[data-projects-next]");
+  const windowEl = carousel.querySelector(".projects-window");
+
+  if (!track || !slides.length || !windowEl) return;
+
+  const clonesBefore = slides.map((slide) => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    return clone;
+  });
+
+  const clonesAfter = slides.map((slide) => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    return clone;
+  });
+
+  clonesBefore.forEach((clone) => track.insertBefore(clone, track.firstChild));
+  clonesAfter.forEach((clone) => track.appendChild(clone));
+
+  const allSlides = Array.from(track.children);
+
+  const getOffsetForIndex = (value) => {
+    const slide = allSlides[value];
+    if (!slide) return 0;
+
+    const trackRect = track.getBoundingClientRect();
+    const slideRect = slide.getBoundingClientRect();
+    return slideRect.left - trackRect.left;
+  };
+
+  const originalCount = slides.length;
+  const firstOriginalIndex = originalCount;
+  let index = firstOriginalIndex;
+
+  const setTransition = (enable) => {
+    track.style.transition = enable ? "transform .55s ease" : "none";
+  };
+
+  const update = (jump = false) => {
+    const offset = getOffsetForIndex(index);
+    setTransition(!jump);
+    track.style.transform = `translateX(-${offset}px)`;
+
+    if (jump) {
+      requestAnimationFrame(() => setTransition(true));
+    }
+  };
+
+  const normalizeIndex = () => {
+    if (index >= originalCount * 2) {
+      index -= originalCount;
+      update(true);
+    }
+
+    if (index < originalCount) {
+      index += originalCount;
+      update(true);
+    }
+  };
+
+  prevBtn?.addEventListener("click", () => {
+    index -= 1;
+    update();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    index += 1;
+    update();
+  });
+
+  track.addEventListener("transitionend", normalizeIndex);
+
+  window.addEventListener("resize", () => {
+    normalizeIndex();
+    update(true);
+  });
+
+  update(true);
+}
+
+
+/* ============================================================
+   PROJECTS — CARROUSEL
+============================================================ */
+function initProjectsCarousel() {
+  const carousel = document.querySelector("[data-projects-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-projects-track]");
+  const slides = Array.from(track?.children || []);
+  const prevBtn = carousel.querySelector("[data-projects-prev]");
+  const nextBtn = carousel.querySelector("[data-projects-next]");
+  const windowEl = carousel.querySelector(".projects-window");
+
+  if (!track || !slides.length || !windowEl) return;
+
+  const clonesBefore = slides.map((slide) => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    return clone;
+  });
+
+  const clonesAfter = slides.map((slide) => {
+    const clone = slide.cloneNode(true);
+    clone.setAttribute("aria-hidden", "true");
+    return clone;
+  });
+
+  clonesBefore.forEach((clone) => track.insertBefore(clone, track.firstChild));
+  clonesAfter.forEach((clone) => track.appendChild(clone));
+
+  const allSlides = Array.from(track.children);
+
+  const getOffsetForIndex = (value) => {
+    const slide = allSlides[value];
+    if (!slide) return 0;
+    return slide.offsetLeft - track.offsetLeft;
+  };
+
+  const originalCount = slides.length;
+  const firstOriginalIndex = originalCount;
+  let index = firstOriginalIndex;
+
+  const setTransition = (enable) => {
+    track.style.transition = enable ? "transform .55s ease" : "none";
+  };
+
+  const update = (jump = false) => {
+    const offset = getOffsetForIndex(index);
+    setTransition(!jump);
+    track.style.transform = `translateX(-${offset}px)`;
+
+    if (jump) {
+      requestAnimationFrame(() => setTransition(true));
+    }
+  };
+
+  const normalizeIndex = () => {
+    if (index >= originalCount * 2) {
+      index -= originalCount;
+      update(true);
+    }
+
+    if (index < originalCount) {
+      index += originalCount;
+      update(true);
+    }
+  };
+
+  prevBtn?.addEventListener("click", () => {
+    index -= 1;
+    update();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    index += 1;
+    update();
+  });
+
+  track.addEventListener("transitionend", normalizeIndex);
+
+  window.addEventListener("resize", () => {
+    update(true);
+  });
+
+  update(true);
+}
+
+
+/* ============================================================
+   PROJECTS — CARROUSEL
+============================================================ */
+function initProjectsCarousel() {
+  const carousel = document.querySelector("[data-projects-carousel]");
+  if (!carousel) return;
+
+  const track = carousel.querySelector("[data-projects-track]");
+  const slides = Array.from(track?.children || []);
+  const prevBtn = carousel.querySelector("[data-projects-prev]");
+  const nextBtn = carousel.querySelector("[data-projects-next]");
+  const windowEl = carousel.querySelector(".projects-window");
+
+  if (!track || !slides.length || !windowEl) return;
+
+  const getGap = () => {
+    const style = getComputedStyle(track);
+    return Number.parseFloat(style.columnGap || style.gap || "0") || 0;
+  };
+
+  const getSlideSpan = () => {
+    const slide = slides[0];
+    if (!slide) return 0;
+    return slide.getBoundingClientRect().width + getGap();
+  };
+
+  const getMaxOffset = () => Math.max(0, track.scrollWidth - windowEl.getBoundingClientRect().width);
+
+  const getOffsetForIndex = (value) => {
+    const slide = slides[value];
+    if (!slide) return 0;
+    return slide.offsetLeft - track.offsetLeft;
+  };
+
+  const getMaxIndex = () => {
+    const span = getSlideSpan();
+    if (!span) return slides.length - 1;
+    // Floor to ensure we always allow sliding when a new card is partially visible
+    const visible = Math.max(1, Math.floor(windowEl.getBoundingClientRect().width / span));
+    return Math.max(0, slides.length - visible);
+  };
+
+  const clampIndex = (value) => Math.min(Math.max(value, 0), getMaxIndex());
+
+  let index = 0;
+
+  const update = () => {
+    index = clampIndex(index);
+    const offset = Math.min(getOffsetForIndex(index), getMaxOffset());
+    track.style.transform = `translateX(-${offset}px)`;
+
+    if (prevBtn) prevBtn.disabled = index <= 0;
+    if (nextBtn) nextBtn.disabled = index >= getMaxIndex();
+  };
+
+  prevBtn?.addEventListener("click", () => {
+    index = clampIndex(index - 1);
+    update();
+  });
+
+  nextBtn?.addEventListener("click", () => {
+    index = clampIndex(index + 1);
+    update();
+  });
+
+  window.addEventListener("resize", update);
+
+  update();
+}
+
+
+/* ============================================================
    BACKGROUND DORÉ DYNAMIQUE
 ============================================================ */
 function bindParallax() {
