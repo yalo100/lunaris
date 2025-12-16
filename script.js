@@ -259,7 +259,6 @@ function initServiceCarousel() {
 
 /* ============================================================
    BACKGROUND DORÉ DYNAMIQUE
-============================================================ */
 function bindParallax() {
   if (bindParallax.bound) return;
 
