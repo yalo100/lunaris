@@ -210,7 +210,12 @@ function initServiceCarousel() {
 
     if (totalEl) totalEl.textContent = slides.length;
 
-    const clampIndex = (value) => Math.min(Math.max(value, 0), slides.length - 1);
+    let visibleCount = getVisibleCount();
+
+    const clampIndex = (value) => {
+      const maxIndex = Math.max(0, slides.length - visibleCount);
+      return Math.min(Math.max(value, 0), maxIndex);
+    };
 
     const getMaxOffset = () => {
       const windowWidth = windowEl?.getBoundingClientRect().width || 0;
@@ -230,10 +235,11 @@ function initServiceCarousel() {
     let index = 0;
 
     const update = () => {
+      visibleCount = getVisibleCount();
       const offset = Math.min(getOffsetForIndex(index), getMaxOffset());
       track.style.transform = `translateX(-${offset}px)`;
-      if (prevBtn) prevBtn.disabled = offset <= 0;
-      if (nextBtn) nextBtn.disabled = offset >= getMaxOffset() - 1;
+      if (prevBtn) prevBtn.disabled = index <= 0;
+      if (nextBtn) nextBtn.disabled = index >= slides.length - visibleCount;
 
       if (currentEl) currentEl.textContent = index + 1;
     };
@@ -249,6 +255,7 @@ function initServiceCarousel() {
     });
 
     window.addEventListener("resize", () => {
+      visibleCount = getVisibleCount();
       index = clampIndex(index);
       update();
     });
