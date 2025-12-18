@@ -221,9 +221,10 @@ function initServiceCarousel() {
       const slide = slides[value];
       if (!slide) return 0;
 
-      const slideBox = slide.getBoundingClientRect();
-      const trackBox = track.getBoundingClientRect();
-      return slideBox.left - trackBox.left;
+      // Utiliser offsetLeft pour un calcul stable, non impacté par le transform
+      // courant appliqué sur la track (getBoundingClientRect inclut la translation
+      // et entraînait des déplacements incohérents après la première interaction).
+      return slide.offsetLeft;
     };
 
     let index = 0;
