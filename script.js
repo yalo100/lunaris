@@ -226,10 +226,9 @@ function initServiceCarousel() {
       const slide = slides[value];
       if (!slide) return 0;
 
-      // Utiliser offsetLeft pour un calcul stable, non impacté par le transform
-      // courant appliqué sur la track (getBoundingClientRect inclut la translation
-      // et entraînait des déplacements incohérents après la première interaction).
-      return slide.offsetLeft;
+      // Calculer la position relative au début de la track pour éviter
+      // toute influence du décalage naturel du conteneur ou des transforms.
+      return Math.max(0, slide.offsetLeft - track.offsetLeft);
     };
 
     let index = 0;
