@@ -107,14 +107,26 @@
       </div>
 
       <div class="container">
-        <div class="services-carousel" data-carousel>
-          <button class="carousel-btn" data-carousel-prev aria-label="Service précédent">
-            <span>‹</span>
-          </button>
+        <div class="slider" data-slider>
+          <div class="slider-controls">
+            <div class="slider-counter">
+              <span data-slider-current>01</span>
+              <span class="separator">/</span>
+              <span data-slider-total>07</span>
+            </div>
+            <div class="slider-arrows">
+              <button class="carousel-btn" data-slider-prev aria-label="Service précédent">
+                <span>‹</span>
+              </button>
+              <button class="carousel-btn" data-slider-next aria-label="Service suivant">
+                <span>›</span>
+              </button>
+            </div>
+          </div>
 
-          <div class="services-window" aria-live="polite">
-            <div class="services-track" data-carousel-track>
-              <article class="service-card">
+          <div class="slider-window" data-slider-window aria-live="polite">
+            <div class="slider-track" data-slider-track>
+              <article class="slider-card service-card">
                 <div class="service-illustration" aria-hidden="true">
                   <div class="service-halo"></div>
                   <span class="service-icon">🪐</span>
@@ -131,7 +143,7 @@
                 </div>
               </article>
 
-              <article class="service-card">
+              <article class="slider-card service-card">
                 <div class="service-illustration" aria-hidden="true">
                   <div class="service-halo"></div>
                   <span class="service-icon">📱</span>
@@ -147,7 +159,7 @@
                 </div>
               </article>
 
-              <article class="service-card">
+              <article class="slider-card service-card">
                 <div class="service-illustration" aria-hidden="true">
                   <div class="service-halo"></div>
                   <span class="service-icon">✒️</span>
@@ -163,7 +175,7 @@
                 </div>
               </article>
 
-              <article class="service-card">
+              <article class="slider-card service-card">
                 <div class="service-illustration" aria-hidden="true">
                   <div class="service-halo"></div>
                   <span class="service-icon">📡</span>
@@ -179,7 +191,7 @@
                 </div>
               </article>
 
-              <article class="service-card">
+              <article class="slider-card service-card">
                 <div class="service-illustration" aria-hidden="true">
                   <div class="service-halo"></div>
                   <span class="service-icon">📍</span>
@@ -194,7 +206,7 @@
                 </div>
               </article>
 
-              <article class="service-card">
+              <article class="slider-card service-card">
                 <div class="service-illustration" aria-hidden="true">
                   <div class="service-halo"></div>
                   <span class="service-icon">🎯</span>
@@ -209,7 +221,7 @@
                 </div>
               </article>
 
-              <article class="service-card">
+              <article class="slider-card service-card">
                 <div class="service-illustration" aria-hidden="true">
                   <div class="service-halo"></div>
                   <span class="service-icon">🔭</span>
@@ -227,15 +239,7 @@
             </div>
           </div>
 
-          <button class="carousel-btn" data-carousel-next aria-label="Service suivant">
-            <span>›</span>
-          </button>
-        </div>
-
-        <div class="carousel-indicator">
-          <span data-carousel-current>1</span>
-          <span class="separator">/</span>
-          <span data-carousel-total>7</span>
+          <div class="slider-dots" data-slider-dots></div>
         </div>
       </div>
     </section>

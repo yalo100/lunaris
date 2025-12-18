@@ -184,101 +184,7 @@ function animateReveals() {
 
 
 /* ============================================================
-   SERVICES — CARROUSEL
-============================================================ */
-function initServiceCarousel() {
-  const carousels = document.querySelectorAll("[data-carousel]");
-  if (!carousels.length) return;
-
-  carousels.forEach((carousel) => {
-    const track = carousel.querySelector("[data-carousel-track]");
-    const slides = Array.from(track?.children || []);
-    const prevBtn = carousel.querySelector("[data-carousel-prev]");
-    const nextBtn = carousel.querySelector("[data-carousel-next]");
-    const windowEl = carousel.querySelector(".services-window");
-    const scope = carousel.parentElement;
-    const currentEl = scope?.querySelector("[data-carousel-current]");
-    const totalEl = scope?.querySelector("[data-carousel-total]");
-
-    if (!slides.length || !track) return;
-    if (totalEl) totalEl.textContent = slides.length;
-
-    const getBaseVisibleCount = () => {
-      if (window.matchMedia("(max-width: 700px)").matches) return 1;
-      if (window.matchMedia("(max-width: 980px)").matches) return 2;
-      return 3;
-    };
-
-    const getGap = () => {
-      const styles = track ? window.getComputedStyle(track) : null;
-      const gapValue = styles?.getPropertyValue("column-gap") || styles?.getPropertyValue("gap") || "0";
-      return parseFloat(gapValue) || 0;
-    };
-
-    const measureVisibleCount = () => {
-      const viewportWidth = windowEl?.getBoundingClientRect().width || 0;
-      const slideWidth = slides[0]?.getBoundingClientRect().width || 0;
-      const gap = getGap();
-
-      if (!viewportWidth || !slideWidth) return getBaseVisibleCount();
-      return Math.max(1, Math.floor((viewportWidth + gap) / (slideWidth + gap)));
-    };
-
-    const getMaxOffset = () => {
-      const windowWidth = windowEl?.getBoundingClientRect().width || 0;
-      return Math.max(0, track.scrollWidth - windowWidth);
-    };
-
-    const getOffsetForIndex = (value) => {
-      const slide = slides[value];
-      if (!slide) return 0;
-
-      // Utiliser offsetLeft pour un calcul stable, non impacté par le transform
-      // courant appliqué sur la track (getBoundingClientRect inclut la translation
-      // et entraînait des déplacements incohérents après la première interaction).
-      return slide.offsetLeft;
-    };
-
-    let visibleCount = measureVisibleCount();
-    let index = 0;
-
-    const clampIndex = (value) => {
-      const maxIndex = Math.max(0, slides.length - visibleCount);
-      return Math.min(Math.max(value, 0), maxIndex);
-    };
-
-    const update = () => {
-      visibleCount = measureVisibleCount();
-      index = clampIndex(index);
-
-      const offset = Math.min(getOffsetForIndex(index), getMaxOffset());
-      track.style.transform = `translateX(-${offset}px)`;
-
-      if (prevBtn) prevBtn.disabled = index <= 0;
-      if (nextBtn) nextBtn.disabled = index >= slides.length - visibleCount;
-      if (currentEl) currentEl.textContent = index + 1;
-    };
-
-    prevBtn?.addEventListener("click", () => {
-      index = clampIndex(index - 1);
-      update();
-    });
-
-    nextBtn?.addEventListener("click", () => {
-      index = clampIndex(index + 1);
-      update();
-    });
-
-    window.addEventListener("resize", update);
-
-    update();
-  });
-}
-
-
-/* ============================================================
-   BACKGROUND DORÉ DYNAMIQUE
-function bindParallax() {
+   SLIDERS — SERVICES & OFFRES
   if (bindParallax.bound) return;
 
   document.addEventListener("mousemove", (e) => {
@@ -302,7 +208,7 @@ function applyReducedMotionState(matches) {
   if (matches) {
     root.classList.add("reduce-motion");
     stopLenis();
-    document.querySelectorAll(".split, .reveal, .reveal-up, .card, .service-card").forEach(el => {
+    document.querySelectorAll(".split, .reveal, .reveal-up, .card, .service-card, .slider-track").forEach(el => {
       el.style.opacity = 1;
       el.style.transform = "none";
     });
@@ -321,4 +227,4 @@ prefersReducedMotion.addEventListener("change", (event) => {
   applyReducedMotionState(event.matches);
 });
 
-initServiceCarousel();
+initSliders();
