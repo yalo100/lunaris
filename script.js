@@ -184,81 +184,95 @@ function animateReveals() {
 
 
 /* ============================================================
-   SERVICES — CARROUSEL
+   SLIDERS — SERVICES & OFFRES
 ============================================================ */
-function initServiceCarousel() {
-  const carousels = document.querySelectorAll("[data-carousel]");
-  if (!carousels.length) return;
+function initSliders() {
+  const sliders = document.querySelectorAll("[data-slider]");
+  if (!sliders.length) return;
 
-  const getVisibleCount = () => {
-    if (window.matchMedia("(max-width: 700px)").matches) return 1;
-    if (window.matchMedia("(max-width: 980px)").matches) return 2;
-    return 3;
-  };
-
-  carousels.forEach((carousel) => {
-    const track = carousel.querySelector("[data-carousel-track]");
+  sliders.forEach((slider) => {
+    const track = slider.querySelector("[data-slider-track]");
+    const viewport = slider.querySelector("[data-slider-window]");
     const slides = Array.from(track?.children || []);
-    const prevBtn = carousel.querySelector("[data-carousel-prev]");
-    const nextBtn = carousel.querySelector("[data-carousel-next]");
-    const windowEl = carousel.querySelector(".services-window");
-    const scope = carousel.parentElement;
-    const currentEl = scope?.querySelector("[data-carousel-current]");
-    const totalEl = scope?.querySelector("[data-carousel-total]");
+    const prevBtn = slider.querySelector("[data-slider-prev]");
+    const nextBtn = slider.querySelector("[data-slider-next]");
+    const dotsWrapper = slider.querySelector("[data-slider-dots]");
+    const currentEl = slider.querySelector("[data-slider-current]");
+    const totalEl = slider.querySelector("[data-slider-total]");
 
-    if (!slides.length || !track) return;
+    if (!track || !viewport || !slides.length) return;
 
-    if (totalEl) totalEl.textContent = slides.length;
-
-    const clampIndex = (value) => Math.min(Math.max(value, 0), slides.length - 1);
-
-    const getMaxOffset = () => {
-      const windowWidth = windowEl?.getBoundingClientRect().width || 0;
-      return Math.max(0, track.scrollWidth - windowWidth);
-    };
-
-    const getOffsetForIndex = (value) => {
-      const slide = slides[value];
-      if (!slide) return 0;
-
-      const slideBox = slide.getBoundingClientRect();
-      const trackBox = track.getBoundingClientRect();
-      return slideBox.left - trackBox.left;
-    };
-
+    let gap = 0;
+    let slideWidth = 0;
+    let visibleCount = 1;
+    let maxIndex = slides.length - 1;
     let index = 0;
 
-    const update = () => {
-      const offset = Math.min(getOffsetForIndex(index), getMaxOffset());
-      track.style.transform = `translateX(-${offset}px)`;
-      if (prevBtn) prevBtn.disabled = offset <= 0;
-      if (nextBtn) nextBtn.disabled = offset >= getMaxOffset() - 1;
-
-      if (currentEl) currentEl.textContent = index + 1;
+    const renderDots = () => {
+      if (!dotsWrapper) return;
+      dotsWrapper.innerHTML = "";
+      slides.forEach((_, idx) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "slider-dot";
+        dot.setAttribute("aria-label", `Aller à la diapositive ${idx + 1}`);
+        dot.addEventListener("click", () => goTo(idx));
+        dotsWrapper.appendChild(dot);
+      });
     };
 
-    prevBtn?.addEventListener("click", () => {
-      index = clampIndex(index - 1);
-      update();
-    });
+    const getGap = () => {
+      const styles = window.getComputedStyle(track);
+      const spacing = styles.getPropertyValue("column-gap") || styles.getPropertyValue("gap") || "0";
+      return parseFloat(spacing) || 0;
+    };
 
-    nextBtn?.addEventListener("click", () => {
-      index = clampIndex(index + 1);
-      update();
-    });
+    const measure = () => {
+      gap = getGap();
+      slideWidth = slides[0]?.getBoundingClientRect().width || viewport.clientWidth;
+      visibleCount = Math.max(1, Math.round((viewport.clientWidth + gap) / (slideWidth + gap)));
+      maxIndex = Math.max(0, slides.length - visibleCount);
+      index = Math.min(index, maxIndex);
+    };
 
+    const updateUI = () => {
+      const offset = (slideWidth + gap) * index;
+      track.style.transform = `translate3d(-${offset}px, 0, 0)`;
+
+      if (prevBtn) prevBtn.disabled = index === 0;
+      if (nextBtn) nextBtn.disabled = index >= maxIndex;
+      if (currentEl) currentEl.textContent = String(index + 1).padStart(2, "0");
+      if (totalEl) totalEl.textContent = String(slides.length).padStart(2, "0");
+
+      if (dotsWrapper) {
+        dotsWrapper.querySelectorAll(".slider-dot").forEach((dot, dotIndex) => {
+          dot.classList.toggle("is-active", dotIndex === index);
+        });
+      }
+    };
+
+    const goTo = (value) => {
+      index = Math.max(0, Math.min(value, maxIndex));
+      updateUI();
+    };
+
+    renderDots();
+    measure();
+    updateUI();
+
+    prevBtn?.addEventListener("click", () => goTo(index - 1));
+    nextBtn?.addEventListener("click", () => goTo(index + 1));
     window.addEventListener("resize", () => {
-      index = clampIndex(index);
-      update();
+      measure();
+      updateUI();
     });
-
-    update();
   });
 }
 
 
 /* ============================================================
    BACKGROUND DORÉ DYNAMIQUE
+============================================================ */
 function bindParallax() {
   if (bindParallax.bound) return;
 
@@ -283,7 +297,7 @@ function applyReducedMotionState(matches) {
   if (matches) {
     root.classList.add("reduce-motion");
     stopLenis();
-    document.querySelectorAll(".split, .reveal, .reveal-up, .card, .service-card").forEach(el => {
+    document.querySelectorAll(".split, .reveal, .reveal-up, .card, .service-card, .slider-track").forEach(el => {
       el.style.opacity = 1;
       el.style.transform = "none";
     });
@@ -302,4 +316,4 @@ prefersReducedMotion.addEventListener("change", (event) => {
   applyReducedMotionState(event.matches);
 });
 
-initServiceCarousel();
+initSliders();
