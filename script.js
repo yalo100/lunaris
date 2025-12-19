@@ -185,12 +185,84 @@ function animateReveals() {
 
 /* ============================================================
    ONGLETS SLIDEABLES — SERVICES & OFFRES
+============================================================ */
+function initTabs() {
+  const tabContainers = document.querySelectorAll('[data-tabs]');
+
+  tabContainers.forEach(container => {
+    const tabList = container.querySelector('.tab-list');
+    const tabs = Array.from(container.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(container.querySelectorAll('[role="tabpanel"]'));
+
+    if (!tabs.length || !panels.length) return;
+
+    function activateTab(tab) {
+      const targetId = tab.getAttribute('aria-controls');
+
+      tabs.forEach(btn => {
+        const isActive = btn === tab;
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        btn.tabIndex = isActive ? 0 : -1;
+      });
+
+      panels.forEach(panel => {
+        const isActive = panel.id === targetId;
+        panel.hidden = !isActive;
+        panel.classList.toggle('is-active', isActive);
+      });
+
+      if (tabList) {
+        tabList.scrollTo({
+          left: tab.offsetLeft - 16,
+          behavior: 'smooth',
+        });
+      }
+    }
+
+    function focusNextTab(currentTab, direction) {
+      const currentIndex = tabs.indexOf(currentTab);
+      const nextIndex = (currentIndex + direction + tabs.length) % tabs.length;
+      tabs[nextIndex].focus();
+      activateTab(tabs[nextIndex]);
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => activateTab(tab));
+
+      tab.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          focusNextTab(tab, 1);
+        }
+
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          focusNextTab(tab, -1);
+        }
+      });
+    });
+
+    const initiallySelected = tabs.find(tab => tab.getAttribute('aria-selected') === 'true') || tabs[0];
+    if (initiallySelected) activateTab(initiallySelected);
+  });
+}
+
+
+/* ============================================================
+   HALO PARALLAX — RÉACTION AU CURSEUR
+============================================================ */
+function bindParallax() {
   if (bindParallax.bound) return;
 
-  document.addEventListener("mousemove", (e) => {
-    const pos = (e.clientX / window.innerWidth) * 100;
-    root.style.setProperty("--pos", pos + "%");
-  });
+  function updatePosition(clientX) {
+    const pos = (clientX / window.innerWidth) * 100;
+    root.style.setProperty("--pos", `${pos}%`);
+  }
+
+  document.addEventListener("mousemove", (event) => updatePosition(event.clientX));
+  document.addEventListener("touchmove", (event) => {
+    if (event.touches?.length) updatePosition(event.touches[0].clientX);
+  }, { passive: true });
 
   bindParallax.bound = true;
 }
