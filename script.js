@@ -185,58 +185,6 @@ function animateReveals() {
 
 /* ============================================================
    ONGLETS SLIDEABLES — SERVICES & OFFRES
-============================================================ */
-function initTabs() {
-  const tabsets = document.querySelectorAll("[data-tabs]");
-  if (!tabsets.length) return;
-
-  tabsets.forEach((tabs) => {
-    const triggers = Array.from(tabs.querySelectorAll("[role='tab']"));
-    const panels = Array.from(tabs.querySelectorAll("[role='tabpanel']"));
-    if (!triggers.length || triggers.length !== panels.length) return;
-
-    let currentIndex = 0;
-
-    const select = (nextIndex, shouldFocus = false) => {
-      currentIndex = Math.max(0, Math.min(nextIndex, triggers.length - 1));
-
-      triggers.forEach((tab, idx) => {
-        const isActive = idx === currentIndex;
-        tab.setAttribute("aria-selected", isActive ? "true" : "false");
-        tab.tabIndex = isActive ? 0 : -1;
-        if (isActive && shouldFocus) {
-          tab.focus({ preventScroll: true });
-          tab.scrollIntoView({ behavior: prefersReducedMotion.matches ? "auto" : "smooth", inline: "center", block: "nearest" });
-        }
-      });
-
-      panels.forEach((panel, idx) => {
-        const show = idx === currentIndex;
-        panel.toggleAttribute("hidden", !show);
-        panel.classList.toggle("is-active", show);
-      });
-    };
-
-    triggers.forEach((tab, idx) => {
-      tab.addEventListener("click", () => select(idx, true));
-      tab.addEventListener("keydown", (event) => {
-        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
-        event.preventDefault();
-        const direction = event.key === "ArrowRight" ? 1 : -1;
-        const targetIndex = (idx + direction + triggers.length) % triggers.length;
-        select(targetIndex, true);
-      });
-    });
-
-    select(0);
-  });
-}
-
-
-/* ============================================================
-   BACKGROUND DORÉ DYNAMIQUE
-============================================================ */
-function bindParallax() {
   if (bindParallax.bound) return;
 
   document.addEventListener("mousemove", (e) => {
