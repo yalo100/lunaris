@@ -184,81 +184,58 @@ function animateReveals() {
 
 
 /* ============================================================
-   SERVICES — CARROUSEL
+   ONGLETS SLIDEABLES — SERVICES & OFFRES
 ============================================================ */
-function initServiceCarousel() {
-  const carousels = document.querySelectorAll("[data-carousel]");
-  if (!carousels.length) return;
+function initTabs() {
+  const tabsets = document.querySelectorAll("[data-tabs]");
+  if (!tabsets.length) return;
 
-  const getVisibleCount = () => {
-    if (window.matchMedia("(max-width: 700px)").matches) return 1;
-    if (window.matchMedia("(max-width: 980px)").matches) return 2;
-    return 3;
-  };
+  tabsets.forEach((tabs) => {
+    const triggers = Array.from(tabs.querySelectorAll("[role='tab']"));
+    const panels = Array.from(tabs.querySelectorAll("[role='tabpanel']"));
+    if (!triggers.length || triggers.length !== panels.length) return;
 
-  carousels.forEach((carousel) => {
-    const track = carousel.querySelector("[data-carousel-track]");
-    const slides = Array.from(track?.children || []);
-    const prevBtn = carousel.querySelector("[data-carousel-prev]");
-    const nextBtn = carousel.querySelector("[data-carousel-next]");
-    const windowEl = carousel.querySelector(".services-window");
-    const scope = carousel.parentElement;
-    const currentEl = scope?.querySelector("[data-carousel-current]");
-    const totalEl = scope?.querySelector("[data-carousel-total]");
+    let currentIndex = 0;
 
-    if (!slides.length || !track) return;
+    const select = (nextIndex, shouldFocus = false) => {
+      currentIndex = Math.max(0, Math.min(nextIndex, triggers.length - 1));
 
-    if (totalEl) totalEl.textContent = slides.length;
+      triggers.forEach((tab, idx) => {
+        const isActive = idx === currentIndex;
+        tab.setAttribute("aria-selected", isActive ? "true" : "false");
+        tab.tabIndex = isActive ? 0 : -1;
+        if (isActive && shouldFocus) {
+          tab.focus({ preventScroll: true });
+          tab.scrollIntoView({ behavior: prefersReducedMotion.matches ? "auto" : "smooth", inline: "center", block: "nearest" });
+        }
+      });
 
-    const clampIndex = (value) => Math.min(Math.max(value, 0), slides.length - 1);
-
-    const getMaxOffset = () => {
-      const windowWidth = windowEl?.getBoundingClientRect().width || 0;
-      return Math.max(0, track.scrollWidth - windowWidth);
+      panels.forEach((panel, idx) => {
+        const show = idx === currentIndex;
+        panel.toggleAttribute("hidden", !show);
+        panel.classList.toggle("is-active", show);
+      });
     };
 
-    const getOffsetForIndex = (value) => {
-      const slide = slides[value];
-      if (!slide) return 0;
-
-      const slideBox = slide.getBoundingClientRect();
-      const trackBox = track.getBoundingClientRect();
-      return slideBox.left - trackBox.left;
-    };
-
-    let index = 0;
-
-    const update = () => {
-      const offset = Math.min(getOffsetForIndex(index), getMaxOffset());
-      track.style.transform = `translateX(-${offset}px)`;
-      if (prevBtn) prevBtn.disabled = offset <= 0;
-      if (nextBtn) nextBtn.disabled = offset >= getMaxOffset() - 1;
-
-      if (currentEl) currentEl.textContent = index + 1;
-    };
-
-    prevBtn?.addEventListener("click", () => {
-      index = clampIndex(index - 1);
-      update();
+    triggers.forEach((tab, idx) => {
+      tab.addEventListener("click", () => select(idx, true));
+      tab.addEventListener("keydown", (event) => {
+        if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+        event.preventDefault();
+        const direction = event.key === "ArrowRight" ? 1 : -1;
+        const targetIndex = (idx + direction + triggers.length) % triggers.length;
+        select(targetIndex, true);
+      });
     });
 
-    nextBtn?.addEventListener("click", () => {
-      index = clampIndex(index + 1);
-      update();
-    });
-
-    window.addEventListener("resize", () => {
-      index = clampIndex(index);
-      update();
-    });
-
-    update();
+    select(0);
   });
 }
 
 
 /* ============================================================
    BACKGROUND DORÉ DYNAMIQUE
+============================================================ */
 function bindParallax() {
   if (bindParallax.bound) return;
 
@@ -302,4 +279,4 @@ prefersReducedMotion.addEventListener("change", (event) => {
   applyReducedMotionState(event.matches);
 });
 
-initServiceCarousel();
+initTabs();

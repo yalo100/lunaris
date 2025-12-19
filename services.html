@@ -86,72 +86,63 @@
           <h2>1. Création de sites web</h2>
           <p class="section-sub">Sites clairs, structurés et prêts à convertir.</p>
         </div>
-        <div class="services-carousel" data-carousel>
-          <button class="carousel-btn" data-carousel-prev aria-label="Offre précédente">
-            <span>‹</span>
-          </button>
-
-          <div class="services-window" aria-live="polite">
-            <div class="services-track" data-carousel-track>
-              <article class="card card--investment offer-card">
-                <header class="card-head">
-                  <div>
-                    <p class="label">Landing page</p>
-                    <h3>Lancement & conversion</h3>
-                  </div>
-                  <span class="price">à partir de 1 800 DH</span>
-                </header>
-                <p>Une page unique pensée pour vendre une offre ou un événement, avec un parcours fluide.</p>
-                <p class="range">En moyenne 1 800 – 3 500 DH</p>
-              </article>
-
-              <article class="card card--investment offer-card">
-                <header class="card-head">
-                  <div>
-                    <p class="label">Site vitrine</p>
-                    <h3>Présence élégante & professionnelle</h3>
-                  </div>
-                  <span class="price">à partir de 3 000 DH</span>
-                </header>
-                <p>Un site clair et structuré pour présenter votre activité, vos services et votre univers.</p>
-                <p class="range">En moyenne 3 000 – 5 000 DH</p>
-              </article>
-
-              <article class="card card--investment offer-card">
-                <header class="card-head">
-                  <div>
-                    <p class="label">Site catalogue</p>
-                    <h3>Vos produits, parfaitement organisés</h3>
-                  </div>
-                  <span class="price">à partir de 4 000 DH</span>
-                </header>
-                <p>Idéal pour boutiques, restaurants ou services multiples. Fiches produits et navigation fluide.</p>
-                <p class="range">En moyenne 4 000 – 7 000 DH</p>
-              </article>
-
-              <article class="card card--investment offer-card">
-                <header class="card-head">
-                  <div>
-                    <p class="label">Site e-commerce</p>
-                    <h3>Vendre en ligne, simplement</h3>
-                  </div>
-                  <span class="price">à partir de 6 000 DH</span>
-                </header>
-                <p>Boutique complète avec gestion des produits, du panier, des commandes et du paiement en ligne.</p>
-                <p class="range">En moyenne 6 000 – 12 000 DH</p>
-              </article>
-            </div>
+        <div class="tabs" data-tabs>
+          <div class="tab-list" role="tablist" aria-label="Offres de sites web">
+            <button class="tab" role="tab" id="offer-tab-landing" aria-controls="offer-panel-landing" aria-selected="true">Landing page</button>
+            <button class="tab" role="tab" id="offer-tab-vitrine" aria-controls="offer-panel-vitrine" aria-selected="false">Site vitrine</button>
+            <button class="tab" role="tab" id="offer-tab-catalogue" aria-controls="offer-panel-catalogue" aria-selected="false">Site catalogue</button>
+            <button class="tab" role="tab" id="offer-tab-ecommerce" aria-controls="offer-panel-ecommerce" aria-selected="false">Site e-commerce</button>
           </div>
 
-          <button class="carousel-btn" data-carousel-next aria-label="Offre suivante">
-            <span>›</span>
-          </button>
-        </div>
+          <div class="tab-panels">
+            <article class="tab-panel card card--investment offer-card" role="tabpanel" id="offer-panel-landing" aria-labelledby="offer-tab-landing">
+              <header class="card-head">
+                <div>
+                  <p class="label">Landing page</p>
+                  <h3>Lancement & conversion</h3>
+                </div>
+                <span class="price">à partir de 1 800 DH</span>
+              </header>
+              <p>Une page unique pensée pour vendre une offre ou un événement, avec un parcours fluide.</p>
+              <p class="range">En moyenne 1 800 – 3 500 DH</p>
+            </article>
 
-        <div class="carousel-indicator">
-          <span data-carousel-current>1</span>
-          <span class="separator">/</span>
-          <span data-carousel-total>4</span>
+            <article class="tab-panel card card--investment offer-card" role="tabpanel" id="offer-panel-vitrine" aria-labelledby="offer-tab-vitrine" hidden>
+              <header class="card-head">
+                <div>
+                  <p class="label">Site vitrine</p>
+                  <h3>Présence élégante & professionnelle</h3>
+                </div>
+                <span class="price">à partir de 3 000 DH</span>
+              </header>
+              <p>Un site clair et structuré pour présenter votre activité, vos services et votre univers.</p>
+              <p class="range">En moyenne 3 000 – 5 000 DH</p>
+            </article>
+
+            <article class="tab-panel card card--investment offer-card" role="tabpanel" id="offer-panel-catalogue" aria-labelledby="offer-tab-catalogue" hidden>
+              <header class="card-head">
+                <div>
+                  <p class="label">Site catalogue</p>
+                  <h3>Vos produits, parfaitement organisés</h3>
+                </div>
+                <span class="price">à partir de 4 000 DH</span>
+              </header>
+              <p>Idéal pour boutiques, restaurants ou services multiples. Fiches produits et navigation fluide.</p>
+              <p class="range">En moyenne 4 000 – 7 000 DH</p>
+            </article>
+
+            <article class="tab-panel card card--investment offer-card" role="tabpanel" id="offer-panel-ecommerce" aria-labelledby="offer-tab-ecommerce" hidden>
+              <header class="card-head">
+                <div>
+                  <p class="label">Site e-commerce</p>
+                  <h3>Vendre en ligne, simplement</h3>
+                </div>
+                <span class="price">à partir de 6 000 DH</span>
+              </header>
+              <p>Boutique complète avec gestion des produits, du panier, des commandes et du paiement en ligne.</p>
+              <p class="range">En moyenne 6 000 – 12 000 DH</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>

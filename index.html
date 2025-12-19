@@ -103,139 +103,133 @@
     <section id="services2" class="section">
       <div class="section-header reveal">
         <h2>🌙 Lunaris – Nos Services</h2>
-        <p class="section-sub">Un carrousel unique pour explorer nos expertises, en douceur.</p>
+        <p class="section-sub">Des onglets glissants pour naviguer facilement entre nos expertises.</p>
       </div>
 
       <div class="container">
-        <div class="services-carousel" data-carousel>
-          <button class="carousel-btn" data-carousel-prev aria-label="Service précédent">
-            <span>‹</span>
-          </button>
-
-          <div class="services-window" aria-live="polite">
-            <div class="services-track" data-carousel-track>
-              <article class="service-card">
-                <div class="service-illustration" aria-hidden="true">
-                  <div class="service-halo"></div>
-                  <span class="service-icon">🪐</span>
-                </div>
-                <div class="service-content">
-                  <p class="eyebrow eyebrow--soft">Web</p>
-                  <h3>Création de Sites Web</h3>
-                  <ul class="service-list">
-                    <li>Site vitrine professionnel</li>
-                    <li>One-Page / Landing Page</li>
-                    <li>Site catalogue</li>
-                    <li>Site e-commerce</li>
-                  </ul>
-                </div>
-              </article>
-
-              <article class="service-card">
-                <div class="service-illustration" aria-hidden="true">
-                  <div class="service-halo"></div>
-                  <span class="service-icon">📱</span>
-                </div>
-                <div class="service-content">
-                  <p class="eyebrow eyebrow--soft">Apps</p>
-                  <h3>Applications</h3>
-                  <ul class="service-list">
-                    <li>Application vitrine</li>
-                    <li>Application catalogue</li>
-                    <li>Application de réservation</li>
-                  </ul>
-                </div>
-              </article>
-
-              <article class="service-card">
-                <div class="service-illustration" aria-hidden="true">
-                  <div class="service-halo"></div>
-                  <span class="service-icon">✒️</span>
-                </div>
-                <div class="service-content">
-                  <p class="eyebrow eyebrow--soft">Image</p>
-                  <h3>Identité Visuelle &amp; Branding</h3>
-                  <ul class="service-list">
-                    <li>Logo professionnel</li>
-                    <li>Mini charte graphique</li>
-                    <li>Pack branding complet</li>
-                  </ul>
-                </div>
-              </article>
-
-              <article class="service-card">
-                <div class="service-illustration" aria-hidden="true">
-                  <div class="service-halo"></div>
-                  <span class="service-icon">📡</span>
-                </div>
-                <div class="service-content">
-                  <p class="eyebrow eyebrow--soft">Social</p>
-                  <h3>Réseaux Sociaux</h3>
-                  <ul class="service-list">
-                    <li>Page Instagram professionnelle</li>
-                    <li>Page TikTok professionnelle</li>
-                    <li>Création de contenu visuel</li>
-                  </ul>
-                </div>
-              </article>
-
-              <article class="service-card">
-                <div class="service-illustration" aria-hidden="true">
-                  <div class="service-halo"></div>
-                  <span class="service-icon">📍</span>
-                </div>
-                <div class="service-content">
-                  <p class="eyebrow eyebrow--soft">Visibilité</p>
-                  <h3>Google Business &amp; Local</h3>
-                  <ul class="service-list">
-                    <li>Création / optimisation fiche Google Business</li>
-                    <li>Photos &amp; visuels pour Google</li>
-                  </ul>
-                </div>
-              </article>
-
-              <article class="service-card">
-                <div class="service-illustration" aria-hidden="true">
-                  <div class="service-halo"></div>
-                  <span class="service-icon">🎯</span>
-                </div>
-                <div class="service-content">
-                  <p class="eyebrow eyebrow--soft">Acquisition</p>
-                  <h3>Publicité &amp; Campagnes</h3>
-                  <ul class="service-list">
-                    <li>Google Ads</li>
-                    <li>Meta Ads (Facebook &amp; Instagram)</li>
-                  </ul>
-                </div>
-              </article>
-
-              <article class="service-card">
-                <div class="service-illustration" aria-hidden="true">
-                  <div class="service-halo"></div>
-                  <span class="service-icon">🔭</span>
-                </div>
-                <div class="service-content">
-                  <p class="eyebrow eyebrow--soft">Packs</p>
-                  <h3>Packs Commerciaux</h3>
-                  <ul class="service-list">
-                    <li>Pack Start</li>
-                    <li>Pack Boost</li>
-                    <li>Pack E-commerce</li>
-                  </ul>
-                </div>
-              </article>
-            </div>
+        <div class="tabs" data-tabs>
+          <div class="tab-list" role="tablist" aria-label="Services Lunaris">
+            <button class="tab" role="tab" id="service-tab-web" aria-controls="service-panel-web" aria-selected="true">Web</button>
+            <button class="tab" role="tab" id="service-tab-apps" aria-controls="service-panel-apps" aria-selected="false">Apps</button>
+            <button class="tab" role="tab" id="service-tab-image" aria-controls="service-panel-image" aria-selected="false">Image</button>
+            <button class="tab" role="tab" id="service-tab-social" aria-controls="service-panel-social" aria-selected="false">Social</button>
+            <button class="tab" role="tab" id="service-tab-local" aria-controls="service-panel-local" aria-selected="false">Visibilité</button>
+            <button class="tab" role="tab" id="service-tab-ads" aria-controls="service-panel-ads" aria-selected="false">Acquisition</button>
+            <button class="tab" role="tab" id="service-tab-packs" aria-controls="service-panel-packs" aria-selected="false">Packs</button>
           </div>
 
-          <button class="carousel-btn" data-carousel-next aria-label="Service suivant">
-            <span>›</span>
-          </button>
-        </div>
+          <div class="tab-panels">
+            <article class="tab-panel service-card" role="tabpanel" id="service-panel-web" aria-labelledby="service-tab-web">
+              <div class="service-illustration" aria-hidden="true">
+                <div class="service-halo"></div>
+                <span class="service-icon">🪐</span>
+              </div>
+              <div class="service-content">
+                <p class="eyebrow eyebrow--soft">Web</p>
+                <h3>Création de Sites Web</h3>
+                <ul class="service-list">
+                  <li>Site vitrine professionnel</li>
+                  <li>One-Page / Landing Page</li>
+                  <li>Site catalogue</li>
+                  <li>Site e-commerce</li>
+                </ul>
+              </div>
+            </article>
 
-        <div class="carousel-indicator">
-          <span data-carousel-current>1</span>
-          <span class="separator">/</span>
-          <span data-carousel-total>7</span>
+            <article class="tab-panel service-card" role="tabpanel" id="service-panel-apps" aria-labelledby="service-tab-apps" hidden>
+              <div class="service-illustration" aria-hidden="true">
+                <div class="service-halo"></div>
+                <span class="service-icon">📱</span>
+              </div>
+              <div class="service-content">
+                <p class="eyebrow eyebrow--soft">Apps</p>
+                <h3>Applications</h3>
+                <ul class="service-list">
+                  <li>Application vitrine</li>
+                  <li>Application catalogue</li>
+                  <li>Application de réservation</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="tab-panel service-card" role="tabpanel" id="service-panel-image" aria-labelledby="service-tab-image" hidden>
+              <div class="service-illustration" aria-hidden="true">
+                <div class="service-halo"></div>
+                <span class="service-icon">✒️</span>
+              </div>
+              <div class="service-content">
+                <p class="eyebrow eyebrow--soft">Image</p>
+                <h3>Identité Visuelle &amp; Branding</h3>
+                <ul class="service-list">
+                  <li>Logo professionnel</li>
+                  <li>Mini charte graphique</li>
+                  <li>Pack branding complet</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="tab-panel service-card" role="tabpanel" id="service-panel-social" aria-labelledby="service-tab-social" hidden>
+              <div class="service-illustration" aria-hidden="true">
+                <div class="service-halo"></div>
+                <span class="service-icon">📡</span>
+              </div>
+              <div class="service-content">
+                <p class="eyebrow eyebrow--soft">Social</p>
+                <h3>Réseaux Sociaux</h3>
+                <ul class="service-list">
+                  <li>Page Instagram professionnelle</li>
+                  <li>Page TikTok professionnelle</li>
+                  <li>Création de contenu visuel</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="tab-panel service-card" role="tabpanel" id="service-panel-local" aria-labelledby="service-tab-local" hidden>
+              <div class="service-illustration" aria-hidden="true">
+                <div class="service-halo"></div>
+                <span class="service-icon">📍</span>
+              </div>
+              <div class="service-content">
+                <p class="eyebrow eyebrow--soft">Visibilité</p>
+                <h3>Google Business &amp; Local</h3>
+                <ul class="service-list">
+                  <li>Création / optimisation fiche Google Business</li>
+                  <li>Photos &amp; visuels pour Google</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="tab-panel service-card" role="tabpanel" id="service-panel-ads" aria-labelledby="service-tab-ads" hidden>
+              <div class="service-illustration" aria-hidden="true">
+                <div class="service-halo"></div>
+                <span class="service-icon">🎯</span>
+              </div>
+              <div class="service-content">
+                <p class="eyebrow eyebrow--soft">Acquisition</p>
+                <h3>Publicité &amp; Campagnes</h3>
+                <ul class="service-list">
+                  <li>Google Ads</li>
+                  <li>Meta Ads (Facebook &amp; Instagram)</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="tab-panel service-card" role="tabpanel" id="service-panel-packs" aria-labelledby="service-tab-packs" hidden>
+              <div class="service-illustration" aria-hidden="true">
+                <div class="service-halo"></div>
+                <span class="service-icon">🔭</span>
+              </div>
+              <div class="service-content">
+                <p class="eyebrow eyebrow--soft">Packs</p>
+                <h3>Packs Commerciaux</h3>
+                <ul class="service-list">
+                  <li>Pack Start</li>
+                  <li>Pack Boost</li>
+                  <li>Pack E-commerce</li>
+                </ul>
+              </div>
+            </article>
+          </div>
         </div>
       </div>
     </section>
