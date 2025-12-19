@@ -184,7 +184,7 @@ function animateReveals() {
 
 
 /* ============================================================
-   SLIDERS — SERVICES & OFFRES
+   ONGLETS SLIDEABLES — SERVICES & OFFRES
   if (bindParallax.bound) return;
 
   document.addEventListener("mousemove", (e) => {
@@ -208,7 +208,7 @@ function applyReducedMotionState(matches) {
   if (matches) {
     root.classList.add("reduce-motion");
     stopLenis();
-    document.querySelectorAll(".split, .reveal, .reveal-up, .card, .service-card, .slider-track").forEach(el => {
+    document.querySelectorAll(".split, .reveal, .reveal-up, .card, .service-card").forEach(el => {
       el.style.opacity = 1;
       el.style.transform = "none";
     });
@@ -227,4 +227,4 @@ prefersReducedMotion.addEventListener("change", (event) => {
   applyReducedMotionState(event.matches);
 });
 
-initSliders();
+initTabs();
